@@ -1,4 +1,4 @@
-* {    
+body {    
     background-color: #18535f;
     font-family: monospace;
     color:#99BADC;    
@@ -52,7 +52,7 @@
 #prev {
     position: absolute;
     top: 50%;
-    color: #fff;
+    color: #3DAB97;
     background-color: transparent;
     border: none;
     font-size: xxx-large;
@@ -70,7 +70,7 @@
 
 h7 {
     margin-top: 50px;
-    color: lightgray;
+    color:#3DAB97;
     font-family: Inter;
     font-size: 20px;
 } 
