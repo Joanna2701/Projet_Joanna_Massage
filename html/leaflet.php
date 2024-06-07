@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Carte avec Leaflet</title>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
-    <link rel="stylesheet" href="../css/style.css" />
+    <link href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" rel="stylesheet"/>
+    <link href="../CSS/style.css" rel="stylesheet"/>
 
     <style>
         #map {
@@ -17,6 +17,7 @@
 
 <body>
     <?php include '../html/header.php'; ?>
+    <?php include '../html/footer.php'; ?>
     <div id="map"></div>
     <script src="https://kit.fontawesome.com/0ab69beb88.js" crossorigin="anonymous"></script>
     <script>
@@ -82,7 +83,7 @@
                 .bindPopup(masseuse.masseuse_nom);
         });
     </script>
-    <?php include '../html/footer.php'; ?>
+
 
     <script src="../BS/bootstrap-5.3.3-examples/bootstrap-5.3.3-dist/js/bootstrap.js"></script>
 

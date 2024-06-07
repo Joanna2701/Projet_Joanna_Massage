@@ -1,7 +1,8 @@
-<!-- Contenu de la page -->
+<!-- Contenu du footer -->
 <footer id="footer">
     <div class="legal">
-        <p>&copy; 2024 Joanna Massage. Tous droits réservés. <a href="#">Mentions Légales</a></p>
+        <p> 2024 Joanna Massage. Tous droits réservés. <a href="#">Mentions Légales</a></p>
+        <span><a href="#">contact@joannamassage.fr</a></span>
     </div>
     <div class="social-icons">
         <a href="#" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>

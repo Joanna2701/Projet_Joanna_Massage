@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,7 +7,7 @@
 </head>
 
 <style>
-    /* General styles for the menu */
+    /* Style général du menu */
     .cbp-spmenu {
         font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
         background: #99BADC;
@@ -44,7 +43,7 @@
         color: #47a3da;
     }
 
-    /* Styles for the vertical menu */
+    /* Style pour le vertical */
     .cbp-spmenu-vertical {
         width: 240px;
         height: 100%;
@@ -57,7 +56,7 @@
         padding: 1em;
     }
 
-    /* Vertical menu that slides from the left */
+    /* Style pour le left */
     .cbp-spmenu-left {
         left: -240px;
     }
@@ -66,7 +65,7 @@
         left: 0px;
     }
 
-    /* Push classes applied to the body */
+    /* Style pour le push */
     .cbp-spmenu-push {
         overflow-x: hidden;
         position: relative;
@@ -85,7 +84,7 @@
         transition: all 0.3s ease;
     }
 
-    /* Example media queries */
+    /* Media queries */
     @media screen and (max-width: 55.1875em) {
         .cbp-spmenu-vertical {
             font-size: 90%;
@@ -98,7 +97,7 @@
         }
     }
 
-    /* Styles for the burger menu button */
+    /* Styles pour le bouton du menu burger */
     .menu-burger {
         position: absolute;
         top: 10px;
@@ -121,7 +120,7 @@
         transition: 0.4s;
     }
 
-    /* Animation on hover */
+    /* Animation button burger hover */
     .menu-burger:hover div:nth-child(1) {
         transform: rotate(45deg) translate(6px, 6px);
     }
@@ -135,25 +134,15 @@
     }
 </style>
 
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Left Push Menu</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-
-
 <body class="cbp-spmenu-push">
+
     <nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
-        <h3><a href="../html/index.php">Menu</a></h3>
-        <a href="../html/lesmassages.php">Les Massages</a>
-        <a href="../PHP/leaflet.php">Trouver mon(ma) professionnel(le) près de chez moi</a>
-        <a href="#">Programme Fidélité Premium <img class="lotus" src="../images/fleur-de-lotus.png" style="margin-left: 70px;" width=30%></a>
-        <a href="#">M'inscrire / Me connecter</a>
-        <a href="#">Réservations</a>
+        <h5><a href="../index.php">Menu</a></h5>
+        <a href="lesmassages.php">Les Massages</a>
+        <a href="leaflet.php">Trouver mon(ma) professionnel(le) près de chez moi</a>
+        <a href="fidelite.php">Programme Fidélité Premium <img class="lotus" src="../images/fleur-de-lotus.png" style="margin-left: 70px;" width=30%></a>
+        <a href="login.php">M'inscrire</a>
+        <a href="register.php">Mon compte</a>
         <a href="formulaire.php">Contact</a>
     </nav>
     <div class="container">
@@ -163,11 +152,14 @@
                     <div class="bar1"></div>
                     <div class="bar2"></div>
                     <div class="bar3"></div>
+                </button>
             </section>
         </div>
     </div>
 
+
     <script>
+        // Script pour l'animation menu
         var menuLeft = document.getElementById('cbp-spmenu-s1'),
             showLeftPush = document.getElementById('showLeftPush'),
             body = document.body;
@@ -179,13 +171,12 @@
         };
 
         document.addEventListener("DOMContentLoaded", function() {
-            // Ajoutez une classe au body lorsque la page est chargée
+            // Ajoute une classe au body lorsque la page est chargée
             document.body.classList.add("loaded");
         });
     </script>
 
-    <script src="classie.js"></script>
-    <script src="script.js"></script>
+    <script src="../js/classie.js"></script>
 
 </body>
 

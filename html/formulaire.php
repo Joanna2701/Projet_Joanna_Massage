@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Joanna Massage, massages à domicile</title>
-    <link href="../CSS/style.css" rel="stylesheet">
+    <link href="CSS/style.css" rel="stylesheet">
 </head>
 
 <header>

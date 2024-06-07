@@ -12,6 +12,25 @@ body {
 	transition: color 0.3s ease;
 }
 
+@keyframes fadeinblurfrombottom {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+        filter: blur(10px);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(0);
+        filter: blur(0);
+    }
+}
+
+.fade-in-blur {
+    opacity: 0;
+    animation: fadeInBlurFromBottom 1s ease forwards;
+}
+
+
 .titre {
 	font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 	color: #3DAB97;
