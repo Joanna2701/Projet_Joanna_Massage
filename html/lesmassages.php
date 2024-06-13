@@ -9,146 +9,172 @@
     <link href="../BS/bootstrap-5.3.3-examples/bootstrap-5.3.3-dist/css/bootstrap.css" rel="stylesheet">
 </head>
 
+<style>
+
+    .card-title {
+        color: #18535f;
+    }
+
+    .card-text .card-title {
+        color: #18535f;
+
+    }
+
+    h2 {
+        text-align: center;
+        margin-top: 2rem;
+        font-size: 2.5rem;
+        color: #18535f;
+    }
+
+    h4.section-title {
+        text-align: center;
+        text-decoration: underline #99badc;
+        margin-top: 2rem;
+        font-size: 2rem;
+        color: #18535f;
+    }
+
+    .card {
+        background-color: #99badc;
+        transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .card:hover {
+        transform: scale(1.2);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+
+    .toutesmescards {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 50px;
+        padding: 1rem;
+        padding-top: 150px;
+        padding-bottom: 150px;
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    }
+
+    .cardsvisage {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem;
+        padding: 1rem;
+        padding-top: 50px;
+        padding-bottom: 100px;
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    }
+
+    .cardsspecifique {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem;
+        padding: 1rem;
+        padding-top: 50px;
+        padding-bottom: 200px;
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    }
+
+
+    /* Style pour la card Sportif plié/déplié */
+    .card-text-sportif {
+        height: 5em;
+        overflow: hidden;
+        transition: height 0.3s ease;
+    }
+
+    .card-text-sportif.expanded {
+        height: auto;
+    }
+
+    .btn-sportif {
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        font-size: 1.5em;
+        padding: 0;
+        margin-top: 10px;
+    }
+
+    .btn-sportif-primary:focus {
+        outline: none;
+    }
+
+    .btn-sportif-primary i {
+        transition: transform 0.3s ease;
+    }
+
+    .btn-sportif-primary.expanded i {
+        transform: rotate(180deg);
+    }
+
+    /* Style pour le loader dans une modal */
+    body.blur {
+        filter: blur(5px);
+        pointer-events: none;
+    }
+
+    .modal {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start; 
+        position: fixed;
+        padding-top: 200px;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(255, 255, 255, 0.8);
+        z-index: 1000;
+    }
+
+    .d-flex {
+        display: flex;
+    }
+
+    .justify-content-center {
+        justify-content: center;
+    }
+
+    .spinner-border {
+        width: 5rem;
+        height: 5rem;
+        border: 0.25em solid currentColor;
+        border-right-color: #3dab97;
+        border-radius: 50%;
+        animation: spinner-border 0.75s linear infinite;
+    }
+
+    @keyframes spinner-border {
+        to {
+            transform: rotate(360deg);
+        }
+    }
+
+    .content {
+        padding: 20px;
+    }
+
+    .animated {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 1.6s ease-out, transform 1.6s ease-out;
+    }
+
+    .animated.show {
+        opacity: 1;
+        transform: translateY(0);
+    }
+</style>
+
 <body>
     <?php include '../html/header.php'; ?>
-
-    <style>
-        body {
-            background-color: #F4E9CD;
-        }
-
-        .card-title {
-            color: #18535f;
-        }
-
-        .card-text .card-title {
-            color: #18535f;
-
-        }
-
-        h2 {
-            text-align: center;
-            margin-top: 2rem;
-            font-size: 2.5rem;
-            color: #18535f;
-        }
-
-        .card {
-            background-color: #99badc;
-        }
-
-        .toutesmescards {
-            /*display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
-        gap: 1rem;
-        padding: 1rem; */
-
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 1rem;
-            padding: 1rem;
-            padding-top: 100px;
-            padding-bottom: 200px;
-            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-        }
-
-        /* Style pour la card Sportif plié/déplié */
-
-        .card-text-sportif {
-            height: 5em;
-            overflow: hidden;
-            transition: height 0.3s ease;
-        }
-
-        .card-text-sportif.expanded {
-            height: auto;
-        }
-
-        .btn-sportif {
-            background-color: transparent;
-            border: none;
-            cursor: pointer;
-            font-size: 1.5em;
-            padding: 0;
-            margin-top: 10px;
-        }
-
-        .btn-sportif-primary:focus {
-            outline: none;
-        }
-
-        .btn-sportif-primary i {
-            transition: transform 0.3s ease;
-        }
-
-        .btn-sportif-primary.expanded i {
-            transform: rotate(180deg);
-        }
-
-        /* Style pour le loader dans une modal*/
-
-        body.blur {
-            filter: blur(5px);
-            pointer-events: none;
-        }
-
-        .modal {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(255, 255, 255, 0.8);
-            z-index: 1000;
-        }
-
-        .d-flex {
-            display: flex;
-        }
-
-        .justify-content-center {
-            justify-content: center;
-        }
-
-        .spinner-border {
-            width: 3rem;
-            height: 3rem;
-            border: 0.25em solid currentColor;
-            border-right-color: transparent;
-            border-radius: 50%;
-            margin-top: -400px;
-            animation: spinner-border 0.75s linear infinite;
-        }
-
-        @keyframes spinner-border {
-            to {
-                transform: rotate(360deg);
-            }
-        }
-
-        .content {
-            padding: 20px;
-        }
-
-        .animated {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 1.6s ease-out, transform 1.6s ease-out;
-        }
-
-        .animated.show {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-    </style>
-
-    <body>
-
+    <div class="allcontainer">
+        <!-- Loader dans une modal -->
         <div class="modal" id="loaderModal">
             <div class="d-flex justify-content-center">
                 <div class="spinner-border" role="status">
@@ -158,12 +184,15 @@
         </div>
 
         <h2>Les différentes prestations</h2>
-        <div class="toutesmescards animated">
+        <h4 class="section-title">Les massages Corps</h4>
 
+
+        <!-- Toutes les cards première section Corps -->
+        <div class="toutesmescards animated">
             <div class="card" style="width: 18rem;">
                 <img src="https://static.wixstatic.com/media/949c1e751af1412094ad2a760a2ff5d0.jpg/v1/fill/w_744,h_430,fp_0.53_0.48,q_80,usm_0.66_1.00_0.01,enc_auto/949c1e751af1412094ad2a760a2ff5d0.jpg" class="card-img-top" alt="Massage Californien">
                 <div class="card-body">
-                    <h5 class="card-title"> Le Californien</h5>
+                    <h5 class="card-title">Le Californien</h5>
                     <p class="card-text">Massage relaxant - Imaginé par des psychologues américains et prenant son inspiration dans les "vagues de Californie, il rassemble mouvements lents..doux...enveloppants... On l'Appelle le "Toucher du Coeur"</p>
                     <a href="#" class="btn btn-primary">Réserver</a>
                 </div>
@@ -208,86 +237,100 @@
                     </button>
                 </div>
             </div>
+        </div>
 
-
+        <!-- Section Massage Visage -->
+        <h4 class="section-title">Les massages Visage</h4>
+        <div class="cardsvisage animated">
             <div class="card" style="width: 18rem;">
                 <img src="https://static.wixstatic.com/media/6d1a1ebe80754b32b937794afc54aa59.jpg/v1/fill/w_744,h_600,fp_0.50_0.50,q_85,usm_0.66_1.00_0.01,enc_auto/6d1a1ebe80754b32b937794afc54aa59.jpg" class="card-img-top" alt="Massage du visage Kobido">
                 <div class="card-body">
-                    <h5 class="card-title">Massage Visage et Crânien - Kobido </h5>
+                    <h5 class="card-title">Massage Visage et Crânien - Kobido</h5>
                     <p class="card-text">Le massage du visage que je pratique tire tous ses bénéfices de la médecine ayurvédique indienne ; Il est relaxant, il apaise le brouillard mental, gomme toute la fatigue ressentie, raffermit et lisse les traits du visage, puis permets de relancer le flux énergétique en activant des points bien précis de digito-pression appelés Marmas.​</p>
                     <a href="#" class="btn btn-primary">Réserver</a>
                 </div>
             </div>
         </div>
 
+        <!-- Dernière card Signature -->
+        <h4 class="section-title">Le Massage Signature <img src="../images/exclusif.png" style="width: 2%;"></h4>
+        <div class="cardsspecifique animated">
+            <div class="card" style="width: 18rem;">
+                <img src="../images/echange.png" class="card-img-top" alt="Massage du visage Kobido">
+                <div class="card-body">
+                    <h5 class="card-title">Massage Soin Signature</h5>
+                    <p class="card-text">Le concept "Sur Mesure" permet d'adapter le soin de façon précise en fonction de vos attentes et de vos besoins, qu'ils correspondent à une contrainte physique (dénouer vos tensions musculaires,etc...), ou d'ordre psycho-émotionnel (chasser la fatigue mentale, le niveau de stress oxydatif du quotidien,etc...).​</p>
+                    <a href="#" class="btn btn-primary">Réserver</a>
+                </div>
+            </div>
+        </div>
 
         <script>
-            //Fonction pour le loader dans une modal 
-            document.addEventListener("DOMContentLoaded", function() {
-                // Ajouter la classe blur au body
-                document.body.classList.add('blur');
+        // Fonction pour le loader dans une modal 
+        document.addEventListener("DOMContentLoaded", function() {
+            // Ajouter la classe blur au body
+            document.body.classList.add('blur');
 
-                // Supprimer la modal et le blur après 3 secondes
-                setTimeout(function() {
-                    document.getElementById('loaderModal').style.display = 'none';
-                    document.body.classList.remove('blur');
+            // Supprimer la modal et le blur après 3 secondes
+            setTimeout(function() {
+                document.getElementById('loaderModal').style.display = 'none';
+                document.body.classList.remove('blur');
 
-                    // Animer les éléments un par un
-                    const animatedElements = document.querySelectorAll('.animated');
-                    animatedElements.forEach((element, index) => {
-                        setTimeout(() => {
-                            element.classList.add('show');
-                        }, index * 300); // délai de 300ms entre chaque élément
-                    });
-                }, 3000);
-            });
+                // Animer les éléments un par un
+                const animatedElements = document.querySelectorAll('.animated');
+                animatedElements.forEach((element, index) => {
+                    setTimeout(() => {
+                        element.classList.add('show');
+                    }, index * 300); // délai de 300ms entre chaque élément
+                });
+            }, 3000);
+        });
         </script>
 
         <script>
-            //Fonction pour le plié/déplié de la card Sportif
-            function toggleText() {
-                var cardTextSportif = document.getElementById("cardTextSportif");
-                var button = document.getElementById("toggleButton");
-                var icon = button.querySelector("i");
+        // Fonction pour le plié/déplié de la card Sportif
+        function toggleText() {
+            var cardTextSportif = document.getElementById("cardTextSportif");
+            var button = document.getElementById("toggleButton");
+            var icon = button.querySelector("i");
 
-                if (cardTextSportif.classList.contains("expanded")) {
-                    cardTextSportif.style.height = cardTextSportif.scrollHeight + 'px'; // Set height to the full scroll height
-                    setTimeout(() => {
-                        cardTextSportif.style.height = '5em'; // Collapse to original height
-                    }, 0);
-                    cardTextSportif.classList.remove("expanded");
-                    button.classList.remove("expanded");
-                    icon.classList.remove("fa-arrow-up");
-                    icon.classList.add("fa-arrow-down");
-                } else {
-                    cardTextSportif.style.height = cardTextSportif.scrollHeight + 'px'; // Expand to full scroll height
-                    cardTextSportif.classList.add("expanded");
-                    button.classList.add("expanded");
-                    icon.classList.remove("fa-arrow-down");
-                    icon.classList.add("fa-arrow-up");
-                    setTimeout(() => {
-                        cardTextSportif.style.height = 'auto'; // Reset height to auto after expansion
-                    }, 300); // Match the duration of the CSS transition
-                }
+            if (cardTextSportif.classList.contains("expanded")) {
+                cardTextSportif.style.height = cardTextSportif.scrollHeight + 'px'; // Set height to the full scroll height
+                setTimeout(() => {
+                    cardTextSportif.style.height = '5em'; // Collapse to original height
+                }, 0);
+                cardTextSportif.classList.remove("expanded");
+                button.classList.remove("expanded");
+                icon.classList.remove("fa-arrow-up");
+                icon.classList.add("fa-arrow-down");
+            } else {
+                cardTextSportif.style.height = cardTextSportif.scrollHeight + 'px'; // Expand to full scroll height
+                cardTextSportif.classList.add("expanded");
+                button.classList.add("expanded");
+                icon.classList.remove("fa-arrow-down");
+                icon.classList.add("fa-arrow-up");
+                setTimeout(() => {
+                    cardTextSportif.style.height = 'auto'; // Reset height to auto after expansion
+                }, 300); // Match the duration of the CSS transition
             }
+        }
         </script>
 
         <script src="BS/bootstrap-5.3.3-examples/bootstrap-5.3.3-dist/js/bootstrap.js"></script>
-
         <script src="https://kit.fontawesome.com/0ab69beb88.js" crossorigin="anonymous"></script>
+        <script src="../JS/classie.js"></script>
 
         <?php include 'footer.php'; ?>
 
-
         <script>
-            function scrollToTop() {
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
-            }
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
         </script>
-
-    </body>
+    <div>
+</body>
 
 </html>

@@ -53,21 +53,72 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <link href="../BS/bootstrap-5.3.3-examples/bootstrap-5.3.3-dist/css/bootstrap.css" rel="stylesheet">
 </head>
 
+<style>
+    body {
+        background-color: #f4e9cd;
+    }
+
+    .login-container {
+        max-width: 400px;
+        margin: 0 auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        transition: opacity 0.3s ease;
+        opacity: 0;
+    }
+
+    .login-container.show {
+        opacity: 1;
+    }
+</style>
+
+
+
 <body>
+
     <?php include '../html/header.php'; ?>
-    <h2>Connexion</h2>
-    <form method="post" action="">
-        Nom d'utilisateur: <input type="text" name="username" required><br>
-        Mot de passe: <input type="password" name="password" required><br>
-        <input type="submit" value="Se connecter">
-    </form>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="login-container" id="loginContainer">
+                    <h2 class="mb-4">Connexion</h2>
+                    <form method="post" action="" id="loginForm">
+                        Nom d'utilisateur: <input type="text" name="username" required><br>
+                        Mot de passe: <input type="password" name="password" required><br>
+                        <input type="submit" value="Se connecter">
+                    </form>
 
-    <script src="BS/bootstrap-5.3.3-examples/bootstrap-5.3.3-dist/js/bootstrap.js"></script>
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Nom d'utilisateur:</label>
+                        <input type="text" name="username" id="username" class="form-control" required>
+                    </div>
 
-    <script src="https://kit.fontawesome.com/0ab69beb88.js" crossorigin="anonymous"></script>
+
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Mot de passe:</label>
+                        <input type="password" name="password" id="password" class="form-control" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Se connecter</button>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    </div>
+
 
     <?php include 'footer.php'; ?>
 
+    <script>
+        // Smoothly display login container
+        window.addEventListener('DOMContentLoaded', function() {
+            document.gtEleementById('loginContainer').classList.add('show');
+        });
+    </script>
 
     <script>
         function scrollToTop() {
@@ -77,6 +128,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             });
         }
     </script>
+
+    <script src="BS/bootstrap-5.3.3-examples/bootstrap-5.3.3-dist/js/bootstrap.js"></script>
+
+    <script src="https://kit.fontawesome.com/0ab69beb88.js" crossorigin="anonymous"></script>
 
 </body>
 
