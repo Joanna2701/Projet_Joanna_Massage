@@ -2,6 +2,7 @@
 <html lang="fr">
 
 <head>
+    <?php require_once 'config.php'; ?>
     <meta charset="UTF-8">
     <title>Footer Test</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
@@ -12,8 +13,8 @@
     <!-- Contenu du footer -->
     <footer id="footer">
         <div class="legal">
-            <p>2024 Joanna Massage. Tous droits réservés. <a href="#">Mentions Légales</a></p>
-            <span><a href="#">contact@joannamassage.fr</a></span>
+            <p>2024 Joanna Massage. Tous droits réservés. <a href="<?= BASE_URL; ?>/mentions-legales">Mentions Légales</a></p>
+            <span><a href="mailto:contact@joannamassage.fr">contact@joannamassage.fr</a></span>
         </div>
         <div class="social-icons">
             <a href="#" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>

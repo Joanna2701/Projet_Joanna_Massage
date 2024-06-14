@@ -18,6 +18,12 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+.container {
+    padding-top: 50px;
+    transition: color 0.3s ease;
+}
+
+
 @media (max-width: 1200px) {
     .allcontainer {
         width: 95%;
@@ -84,10 +90,6 @@ body {
     }
 }
 
-.container {
-    padding-top: 50px;
-    transition: color 0.3s ease;
-}
 
 @keyframes fadeinblurfrombottom {
     0% {
@@ -107,9 +109,68 @@ body {
     animation: fadeinblurfrombottom 1s ease forwards;
 }
 
+    /* Style des titres */
 .titre {
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     color: #3DAB97;
+}
+
+.praticienne {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 40px;
+    font-weight: bold;
+    color: #18535f;
+    text-align: center;
+    margin: 5%;
+    animation: zoom 3s;
+}
+
+.toucher {
+    font-family: 'Montserrat', sans-serif;
+    font-style: italic;
+    font-size: 20px;
+    font-weight: bold;
+    color: #99badc;
+    text-align: center;
+    margin: 5%;
+}
+
+.titre-dessous {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    color: #18535f;
+    text-decoration: underline;
+    text-align: center;
+    margin: 10%;
+}
+
+.titre-dessus {
+    font-family: 'Poppins', sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: #18535f;
+    text-align: center;
+    margin: 10%;
+}
+
+.titre-dessus span {
+    font-family: 'Poppins', sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: #3DAB97;
+    text-align: center;
+}
+
+
+.description {
+    font-family: 'Montserrat', sans-serif;
+    font-style: italic;
+    font-size: 22px;
+    font-weight: 300;
+    color: #18535f;
+    text-align: end;
+    margin: 10%;
 }
 
 @keyframes bounceAndFade {

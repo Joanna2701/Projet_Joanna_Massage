@@ -2,11 +2,12 @@
 <html lang="fr">
 
 <head>
+    <?php require_once 'config.php'; ?>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Joanna Massage, massages à domicile</title>
-    <link href="../CSS/style.css" rel="stylesheet">
-    <link href="../BS/bootstrap-5.3.3-examples/bootstrap-5.3.3-dist/css/bootstrap.css" rel="stylesheet">
+    <link href="<?= BASE_URL; ?>../CSS/style.css" rel="stylesheet">
+    <link href="<?= BASE_URL; ?>../BS/bootstrap-5.3.3-examples/bootstrap-5.3.3-dist/css/bootstrap.css" rel="stylesheet">
 </head>
 
 <style>
@@ -253,10 +254,10 @@
         </div>
 
         <!-- Dernière card Signature -->
-        <h4 class="section-title">Le Massage Signature <img src="../images/exclusif.png" style="width: 2%;"></h4>
+        <h4 class="section-title">Le Massage Signature <img src="<?= BASE_URL; ?>../images/exclusif.png" style="width: 2%;"></h4>
         <div class="cardsspecifique animated">
             <div class="card" style="width: 18rem;">
-                <img src="../images/echange.png" class="card-img-top" alt="Massage du visage Kobido">
+                <img src="<?= BASE_URL; ?>../images/echange.png" class="card-img-top" alt="Massage du visage Kobido">
                 <div class="card-body">
                     <h5 class="card-title">Massage Soin Signature</h5>
                     <p class="card-text">Le concept "Sur Mesure" permet d'adapter le soin de façon précise en fonction de vos attentes et de vos besoins, qu'ils correspondent à une contrainte physique (dénouer vos tensions musculaires,etc...), ou d'ordre psycho-émotionnel (chasser la fatigue mentale, le niveau de stress oxydatif du quotidien,etc...).​</p>
@@ -316,9 +317,9 @@
         }
         </script>
 
-        <script src="BS/bootstrap-5.3.3-examples/bootstrap-5.3.3-dist/js/bootstrap.js"></script>
+        <script src="<?= BASE_URL; ?>BS/bootstrap-5.3.3-examples/bootstrap-5.3.3-dist/js/bootstrap.js"></script>
         <script src="https://kit.fontawesome.com/0ab69beb88.js" crossorigin="anonymous"></script>
-        <script src="../JS/classie.js"></script>
+        <script src="<?= BASE_URL; ?>../JS/classie.js"></script>
 
         <?php include 'footer.php'; ?>
 

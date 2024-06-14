@@ -2,11 +2,12 @@
 <html lang="fr">
 
 <head>
+    <?php require_once 'config.php'; ?>
     <meta charset="UTF-8">
     <title>Carte avec Leaflet</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
-    <link rel="stylesheet" href="../css/style.css" />
+    <link href="<?= BASE_URL; ?>../CSS/style.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
 </head>
 
@@ -58,11 +59,14 @@
     }
 
     /* Style de l'entête */
-    .container {
+
+
+    /* .container {
         font-family: 'Poppins', sans-serif;
         margin: 10px;
+        max-width: 1200px;
         animation: fadeIn 1.6s ease-out;
-    }
+    } */
 
     .text-center {
         text-align: center;
@@ -305,7 +309,7 @@
         <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-        <script src="../JS/classie.js" defer></script>
+        <script src="<?= BASE_URL; ?>../JS/classie.js" defer></script>
 
         <script>
             $(function() {
@@ -437,7 +441,7 @@
                                         document.getElementById('sectioncommentaire').insertBefore(masseuseHeader, commentsContainer);
                                     }
                                     masseuseHeader.textContent = `${masseuse.masseuse_nom} ${masseuse.masseuse_prenom}`;
-                                    masseuseHeader.innerHTML = `${masseuse.masseuse_nom} ${masseuse.masseuse_prenom} <img src="../images/etoile.png" style="width: 2%;"><img src="../images/etoile.png" style="width: 2%;"><img src="../images/etoile.png" style="width: 2%;"><img src="../images/etoile.png" style="width: 2%;"><img src="../images/etoilenoire.png" style="width: 2%;">`;
+                                    masseuseHeader.innerHTML = `${masseuse.masseuse_nom} ${masseuse.masseuse_prenom} <img src="<?= BASE_URL; ?>../images/etoile.png" style="width: 2%;"><img src="<?= BASE_URL; ?>../images/etoile.png" style="width: 2%;"><img src="<?= BASE_URL; ?>../images/etoile.png" style="width: 2%;"><img src="<?= BASE_URL; ?>../images/etoile.png" style="width: 2%;"><img src="<?= BASE_URL; ?>../images/etoilenoire.png" style="width: 2%;">`;
                                     masseuseHeader.style.textAlign = 'center';
 
                                     commentsContainer.classList.remove('show');
@@ -542,7 +546,7 @@
 
         <?php include '../html/footer.php'; ?>
 
-        <script src="../BS/bootstrap-5.3.3-examples/bootstrap-5.3.3-dist/js/bootstrap.js" defer></script>
+        <script src="<?= BASE_URL; ?>../BS/bootstrap-5.3.3-examples/bootstrap-5.3.3-dist/js/bootstrap.js" defer></script>
         <script>
             function scrollToTop() {
                 window.scrollTo({
