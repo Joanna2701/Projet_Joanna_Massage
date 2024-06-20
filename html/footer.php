@@ -14,7 +14,7 @@
     <footer id="footer">
         <div class="legal">
             <p>2024 Joanna Massage. Tous droits réservés. <a href="<?= BASE_URL; ?>/mentions-legales">Mentions Légales</a></p>
-            <span><a href="mailto:contact@joannamassage.fr">contact@joannamassage.fr</a></span>
+            <span><a href="<?= BASE_URL; ?>mailto:contact@joannamassage.fr">contact@joannamassage.fr</a></span>
         </div>
         <div class="social-icons">
             <a href="#" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
@@ -141,6 +141,37 @@
             }
             60% {
                 transform: translateY(-10px);
+            }
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .social-icons a {
+                font-size: 20px;
+                margin: 0 5px;
+            }
+
+            .back-to-top {
+                width: 40px;
+                height: 40px;
+                font-size: 20px;
+                bottom: 15px;
+                right: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .social-icons a {
+                font-size: 18px;
+                margin: 0 3px;
+            }
+
+            .back-to-top {
+                width: 30px;
+                height: 30px;
+                font-size: 16px;
+                bottom: 10px;
+                right: 10px;
             }
         }
     </style>

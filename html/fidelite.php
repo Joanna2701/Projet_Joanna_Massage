@@ -6,8 +6,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Joanna Massage, massages à domicile</title>
-    <link href="<?= BASE_URL; ?>../CSS/style.css" rel="stylesheet">
-    <link href="<?= BASE_URL; ?>../BS/bootstrap-5.3.3-examples/bootstrap-5.3.3-dist/css/bootstrap.css" rel="stylesheet">
+    <link href="<?= BASE_URL; ?>/CSS/style.css" rel="stylesheet">
+    <link href="<?= BASE_URL; ?>/BS/bootstrap-5.3.3-examples/bootstrap-5.3.3-dist/css/bootstrap.css" rel="stylesheet">
     <script src="https://kit.fontawesome.com/0ab69beb88.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 </head>
@@ -68,10 +68,26 @@
             flex: 1 1 100%;
         }
     }
+
+    @media (max-width: 480px) {
+        header {
+            padding: 15px 0;
+        }
+
+        section {
+            margin: 10px;
+            font-size: 16px;
+        }
+
+        .avantage {
+            padding: 20px;
+            margin: 5px;
+        }
+    }
 </style>
 
 <body>
-    <?php include '../html/header.php'; ?>
+    <?php include 'header.php'; ?>
     <div class="allcontainer">
 
         <header class="animate-on-scroll">
@@ -79,7 +95,7 @@
         </header>
         <section class="animate-on-scroll">
             <h2>Principe du Programme</h2>
-            <p>Notre programme de fidélité "Cliente Privilège" <img class="lotus" src="<?= BASE_URL; ?>../images/fleur-de-lotus.png" style="margin:5px;" width=4%> est conçu pour récompenser nos clientes les plus fidèles. Chaque massage réservé sur notre plateforme vous rapproche de récompenses exclusives. Voici comment cela fonctionne :</p>
+            <p>Notre programme de fidélité "Cliente Privilège" <img class="lotus" src="<?= BASE_URL; ?>/images/fleur-de-lotus.png" style="margin:5px;" width=4%> est conçu pour récompenser nos clientes les plus fidèles. Chaque massage réservé sur notre plateforme vous rapproche de récompenses exclusives. Voici comment cela fonctionne :</p>
             <ul>
                 <li>À chaque massage réservé, accumulez des points de fidélité.</li>
                 <li>Profitez de récompenses spéciales en atteignant certains paliers.</li>
@@ -107,7 +123,7 @@
             </div>
         </section>
 
-        <script src="<?= BASE_URL; ?>../JS/classie.js"></script>
+        <script src="<?= BASE_URL; ?>/JS/classie.js"></script>
 
         <script>
             document.addEventListener('DOMContentLoaded', function() {
@@ -118,7 +134,7 @@
                 });
             });
         </script>
-    <?php include '../html/footer.php'; ?>
+    <?php include 'footer.php'; ?>
     </div>
 </body>
 

@@ -6,8 +6,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Joanna Massage, massages à domicile</title>
-    <link href="<?= BASE_URL; ?>../CSS/style.css" rel="stylesheet">
-    <link href="<?= BASE_URL; ?>../BS/bootstrap-5.3.3-examples/bootstrap-5.3.3-dist/css/bootstrap.css" rel="stylesheet">
+    <link href="<?= BASE_URL; ?>/CSS/style.css" rel="stylesheet">
+    <link href="<?= BASE_URL; ?>/BS/bootstrap-5.3.3-examples/bootstrap-5.3.3-dist/css/bootstrap.css" rel="stylesheet">
 </head>
 
 <style>
@@ -170,6 +170,49 @@
         opacity: 1;
         transform: translateY(0);
     }
+
+
+    /* Media queries */
+    @media screen and (max-width: 1024px) {
+        .card {
+            width: 45%;
+        }
+    }
+
+    @media screen and (max-width: 768px) {
+        .card {
+            width: 80%;
+        }
+
+        .toutesmescards,
+        .cardsvisage,
+        .cardsspecifique {
+            padding-top: 50px;
+            padding-bottom: 50px;
+        }
+
+        h2 {
+            font-size: 2rem;
+        }
+
+        h4.section-title {
+            font-size: 1.5rem;
+        }
+    }
+
+    @media screen and (max-width: 480px) {
+        .card {
+            width: 100%;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+        }
+
+        h4.section-title {
+            font-size: 1.25rem;
+        }
+    }
 </style>
 
 <body>
@@ -254,10 +297,10 @@
         </div>
 
         <!-- Dernière card Signature -->
-        <h4 class="section-title">Le Massage Signature <img src="<?= BASE_URL; ?>../images/exclusif.png" style="width: 2%;"></h4>
+        <h4 class="section-title">Le Massage Signature <img src="<?= BASE_URL; ?>/images/exclusif.png" style="width: 5%;"></h4>
         <div class="cardsspecifique animated">
             <div class="card" style="width: 18rem;">
-                <img src="<?= BASE_URL; ?>../images/echange.png" class="card-img-top" alt="Massage du visage Kobido">
+                <img src="<?= BASE_URL; ?>/images/echange.png" class="card-img-top" alt="Massage du visage Kobido">
                 <div class="card-body">
                     <h5 class="card-title">Massage Soin Signature</h5>
                     <p class="card-text">Le concept "Sur Mesure" permet d'adapter le soin de façon précise en fonction de vos attentes et de vos besoins, qu'ils correspondent à une contrainte physique (dénouer vos tensions musculaires,etc...), ou d'ordre psycho-émotionnel (chasser la fatigue mentale, le niveau de stress oxydatif du quotidien,etc...).​</p>
@@ -319,7 +362,7 @@
 
         <script src="<?= BASE_URL; ?>BS/bootstrap-5.3.3-examples/bootstrap-5.3.3-dist/js/bootstrap.js"></script>
         <script src="https://kit.fontawesome.com/0ab69beb88.js" crossorigin="anonymous"></script>
-        <script src="<?= BASE_URL; ?>../JS/classie.js"></script>
+        <script src="<?= BASE_URL; ?>/JS/classie.js"></script>
 
         <?php include 'footer.php'; ?>
 

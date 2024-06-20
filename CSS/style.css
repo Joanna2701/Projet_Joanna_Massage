@@ -30,6 +30,7 @@ body {
     }
 }
 
+/* Style du logo */
 .logo-container {
     display: flex;
     flex-direction: column;
@@ -109,7 +110,22 @@ body {
     animation: fadeinblurfrombottom 1s ease forwards;
 }
 
-    /* Style des titres */
+/* Style de la vidéo */
+.video-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.video1 {
+    width: 100%;
+    max-width: 1200px;
+    height: 600px;
+    animation: zoom 3s;
+}
+
+/* Style des titres */
 .titre {
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     color: #3DAB97;
@@ -289,4 +305,102 @@ body {
     width: 15px;
     height: 15px;
     background-color: #3DAB97;
+}
+
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .logo {
+        width: 60%;
+        height: 60%;
+    }
+
+    .logo-text {
+        font-size: 1.5em;
+    }
+
+    .praticienne {
+        font-size: 30px;
+    }
+
+    .toucher {
+        font-size: 16px;
+    }
+
+    .titre-dessous {
+        font-size: 16px;
+        margin: 5%;
+    }
+
+    .titre-dessus {
+        font-size: 16px;
+        margin: 5%;
+    }
+
+    .description {
+        font-size: 18px;
+        margin: 5%;
+    }
+
+    .slider {
+        height: 300px;
+    }
+
+    .item {
+        width: 80%;
+        height: auto;
+    }
+
+    #prev, #next {
+        width: 20px;
+        height: 50px;
+    }
+}
+
+@media (max-width: 480px) {
+    .logo {
+        width: 80%;
+        height: 80%;
+    }
+
+    .logo-text {
+        font-size: 1.2em;
+    }
+
+    .praticienne {
+        font-size: 24px;
+    }
+
+    .toucher {
+        font-size: 14px;
+    }
+
+    .titre-dessous {
+        font-size: 14px;
+        margin: 3%;
+    }
+
+    .titre-dessus {
+        font-size: 14px;
+        margin: 3%;
+    }
+
+    .description {
+        font-size: 16px;
+        margin: 3%;
+    }
+
+    .slider {
+        height: 200px;
+    }
+
+    .item {
+        width: 100%;
+        height: auto;
+    }
+
+    #prev, #next {
+        width: 20px;
+        height: 40px;
+    }
 }

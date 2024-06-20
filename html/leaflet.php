@@ -7,11 +7,11 @@
     <title>Carte avec Leaflet</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
-    <link href="<?= BASE_URL; ?>../CSS/style.css" rel="stylesheet">
+    <link href="<?= BASE_URL; ?>/CSS/style.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
-</head>
 
-<style>
+
+    <style>
     /* Style pour l'auto loader  */
 
     #preloader {
@@ -268,149 +268,215 @@
         display: flex;
         justify-content: flex-end;
     }
+
+    /* Media Queries pour le Design Responsive */
+    @media screen and (max-width: 768px) {
+        #map {
+            margin: 20px;
+            height: 400px;
+        }
+
+        .input-group-lg {
+            width: 80%;
+            margin: 10px auto;
+            flex-direction: column;
+        }
+
+        .input-group-text {
+            font-size: 1.2rem;
+            padding: 5px;
+        }
+
+        .form-control {
+            font-size: 1.2rem;
+            padding: 5px;
+            width: 100%;
+        }
+
+        .text-center {
+            font-size: 24px;
+        }
+
+        #sectioncommentaire {
+            margin: 20px;
+        }
+    }
+
+    @media screen and (max-width: 480px) {
+        #map {
+            margin: 10px;
+            height: 300px;
+        }
+
+        .input-group-lg {
+            width: 100%;
+            margin: 5px auto;
+            flex-direction: column;
+        }
+
+        .input-group-text {
+            font-size: 1rem;
+            padding: 5px;
+        }
+
+        .form-control {
+            font-size: 1rem;
+            padding: 5px;
+            width: 100%;
+        }
+
+        .text-center {
+            font-size: 20px;
+        }
+
+        #sectioncommentaire {
+            margin: 10px;
+        }
+    }
 </style>
+</head>
 
 <body>
+
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="spinner"></div>
+    </div>
+
+    <?php include 'header.php'; ?>
     <div class="allcontainer">
-        <!-- Preloader -->
-        <div id="preloader">
-            <div class="spinner"></div>
-        </div>
+        <div class="container">
+            <h1 class="text-center">Se géolocaliser :</h1>
+            <p class="text-center">Retrouvez vos professionnel(le)s près de chez vous !</p>
 
-        <?php include '../html/header.php'; ?>
-        <div class="allcontainer">
-            <div class="container">
-                <h1 class="text-center">Se géolocaliser :</h1>
-                <p class="text-center">Retrouvez vos professionnel(le)s près de chez vous !</p>
-
-                <!-- Champ pour adresse -->
-                <div class="input-group-lg">
-                    <div class="input-group-text">
-                        <i class="fa-regular fa-address-card"></i> Adresse:
-                    </div>
-                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" placeholder="Toulouse Cedex...">
+            <!-- Champ pour adresse -->
+            <div class="input-group-lg">
+                <div class="input-group-text">
+                    <i class="fa-regular fa-address-card"></i> Adresse:
                 </div>
-            </div>
-
-            <div id="map"></div>
-            <!-- Pop-up du calendrier -->
-            <div id="calendarPopup">
-                <h3>Choisissez une date pour votre réservation</h3>
-                <button class="btncroirouge" onclick="closeCalendarPopup()">X</button>
-                <div id="datepicker"></div>
-                <button class="btn btn-secondary" onclick="closeCalendarPopup()">Fermer</button>
-            </div>
-            <div id="sectioncommentaire">
-                <h2>Commentaires</h2>
-                <div id="comments"></div>
+                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" placeholder="Toulouse Cedex...">
             </div>
         </div>
-        <script src="https://kit.fontawesome.com/0ab69beb88.js" crossorigin="anonymous" defer></script>
-        <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-        <script src="<?= BASE_URL; ?>../JS/classie.js" defer></script>
 
-        <script>
-            $(function() {
-                $("#datepicker").datepicker({
-                    onSelect: function(dateText) {
-                        window.location.href = 'login.php?date=' + dateText;
-                    }
-                });
+        <div id="map"></div>
+        <!-- Pop-up du calendrier -->
+        <div id="calendarPopup">
+            <h3>Choisissez une date pour votre réservation</h3>
+            <button class="btncroirouge" onclick="closeCalendarPopup()">X</button>
+            <div id="datepicker"></div>
+            <button class="btn btn-secondary" onclick="closeCalendarPopup()">Fermer</button>
+        </div>
+        <div id="sectioncommentaire">
+            <h2>Commentaires</h2>
+            <div id="comments"></div>
+        </div>
+    </div>
+    <script src="https://kit.fontawesome.com/0ab69beb88.js" crossorigin="anonymous" defer></script>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script src="<?= BASE_URL; ?>/JS/classie.js" defer></script>
+
+    <script>
+        $(function() {
+            $("#datepicker").datepicker({
+                onSelect: function(dateText) {
+                    window.location.href = 'login.php?date=' + dateText;
+                }
+            });
+        });
+
+        function loadGoogleMapsAPI(callback) {
+            var script = document.createElement('script');
+            script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyCb6ypZ01_IMAGo2Oi_dxl6CQC15ZcxNEY&libraries=places&callback=${callback}`;
+            script.async = true;
+            script.defer = true;
+            document.head.appendChild(script);
+        }
+
+        function getPlaceId(masseuse, callback) {
+            var service = new google.maps.places.PlacesService(document.createElement('div'));
+            var request = {
+                query: masseuse.masseuse_nom + " " + masseuse.masseuse_prenom,
+                fields: ['place_id'],
+                locationBias: {
+                    lat: Number(masseuse.lat),
+                    lng: Number(masseuse.lng)
+                }
+            };
+            service.findPlaceFromQuery(request, function(results, status) {
+                if (status === google.maps.places.PlacesServiceStatus.OK && results.length > 0) {
+                    callback(results[0].place_id);
+                } else {
+                    console.error(`Erreur de récupération du placeId pour ${masseuse.masseuse_nom}`);
+                    callback(null);
+                }
+            });
+        }
+
+        function getGoogleReviews(placeId, callback) {
+            if (!placeId) {
+                callback([]);
+                return;
+            }
+            var service = new google.maps.places.PlacesService(document.createElement('div'));
+            service.getDetails({
+                placeId: placeId
+            }, function(place, status) {
+                if (status === google.maps.places.PlacesServiceStatus.OK) {
+                    callback(place.reviews);
+                } else {
+                    console.error(`Erreur de récupération des avis pour le placeId: ${placeId}`);
+                    callback([]);
+                }
+            });
+        }
+
+        function initMap() {
+            var map = L.map('map').setView([43.0866, 0.5732], 8);
+
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
+
+            var lotusIcon = L.icon({
+                iconUrl: "<?= BASE_URL; ?>/images/lotus2.png",
+                iconSize: [38, 38],
+                iconAnchor: [19, 38],
+                popupAnchor: [0, -38]
             });
 
-            function loadGoogleMapsAPI(callback) {
-                var script = document.createElement('script');
-                script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyCb6ypZ01_IMAGo2Oi_dxl6CQC15ZcxNEY&libraries=places&callback=${callback}`;
-                script.async = true;
-                script.defer = true;
-                document.head.appendChild(script);
+            <?php
+            $servername = "localhost";
+            $username = "root";
+            $password = "";
+            $dbname = "masseuse";
+
+            $conn = new mysqli($servername, $username, $password, $dbname);
+
+            if ($conn->connect_error) {
+                die("Connection failed: " . $conn->connect_error);
             }
 
-            function getPlaceId(masseuse, callback) {
-                var service = new google.maps.places.PlacesService(document.createElement('div'));
-                var request = {
-                    query: masseuse.masseuse_nom + " " + masseuse.masseuse_prenom,
-                    fields: ['place_id'],
-                    locationBias: {
-                        lat: Number(masseuse.lat),
-                        lng: Number(masseuse.lng)
-                    }
-                };
-                service.findPlaceFromQuery(request, function(results, status) {
-                    if (status === google.maps.places.PlacesServiceStatus.OK && results.length > 0) {
-                        callback(results[0].place_id);
-                    } else {
-                        console.error(`Erreur de récupération du placeId pour ${masseuse.masseuse_nom}`);
-                        callback(null);
-                    }
-                });
+            $sql = "SELECT masseuse_id, masseuse_nom, masseuse_prenom, masseuse_lat AS lat, masseuse_lon AS lng, masseuse_img ,masseuse_website, masseuse_telephone FROM masseuse";
+            $result = $conn->query($sql);
+
+            $masseuses = array();
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    $masseuses[] = $row;
+                }
+            } else {
+                echo "0 results";
             }
+            $conn->close();
+            ?>
 
-            function getGoogleReviews(placeId, callback) {
-                if (!placeId) {
-                    callback([]);
-                    return;
-                }
-                var service = new google.maps.places.PlacesService(document.createElement('div'));
-                service.getDetails({
-                    placeId: placeId
-                }, function(place, status) {
-                    if (status === google.maps.places.PlacesServiceStatus.OK) {
-                        callback(place.reviews);
-                    } else {
-                        console.error(`Erreur de récupération des avis pour le placeId: ${placeId}`);
-                        callback([]);
-                    }
-                });
-            }
+            let masseuses = <?php echo json_encode($masseuses); ?>;
+            console.log(masseuses);
 
-            function initMap() {
-                var map = L.map('map').setView([43.0866, 0.5732], 8);
-
-                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                }).addTo(map);
-
-                var lotusIcon = L.icon({
-                    iconUrl: '../images/lotus2.png',
-                    iconSize: [38, 38],
-                    iconAnchor: [19, 38],
-                    popupAnchor: [0, -38]
-                });
-
-                <?php
-                $servername = "localhost";
-                $username = "root";
-                $password = "";
-                $dbname = "masseuse";
-
-                $conn = new mysqli($servername, $username, $password, $dbname);
-
-                if ($conn->connect_error) {
-                    die("Connection failed: " . $conn->connect_error);
-                }
-
-                $sql = "SELECT masseuse_id, masseuse_nom, masseuse_prenom, masseuse_lat AS lat, masseuse_lon AS lng, masseuse_img ,masseuse_website, masseuse_telephone FROM masseuse";
-                $result = $conn->query($sql);
-
-                $masseuses = array();
-                if ($result->num_rows > 0) {
-                    while ($row = $result->fetch_assoc()) {
-                        $masseuses[] = $row;
-                    }
-                } else {
-                    echo "0 results";
-                }
-                $conn->close();
-                ?>
-
-                let masseuses = <?php echo json_encode($masseuses); ?>;
-                console.log(masseuses);
-
-                function createPopupContent(masseuse) {
-                    return `
+            function createPopupContent(masseuse) {
+                return `
                     <div class="popup-content">
                         <img src="${masseuse.masseuse_img}" alt="${masseuse.masseuse_nom}">
                         <h3>${masseuse.masseuse_nom} ${masseuse.masseuse_prenom}</h3>
@@ -418,66 +484,66 @@
                         <p><a href="${masseuse.masseuse_website}" target="_blank">Visitez le site web</a></p>
                     </div>
                 `;
-                }
+            }
 
-                masseuses.forEach(function(masseuse) {
-                    var marker = L.marker([masseuse.lat, masseuse.lng], {
-                        icon: lotusIcon
-                    }).addTo(map);
+            masseuses.forEach(function(masseuse) {
+                var marker = L.marker([masseuse.lat, masseuse.lng], {
+                    icon: lotusIcon
+                }).addTo(map);
 
-                    marker.bindPopup(createPopupContent(masseuse));
+                marker.bindPopup(createPopupContent(masseuse));
 
-                    marker.on('click', function() {
-                        console.log(`Fetching placeId for masseuse: ${masseuse.masseuse_nom}`);
-                        getPlaceId(masseuse, function(placeId) {
-                            if (placeId) {
-                                console.log(`Fetching reviews for placeId: ${placeId}`);
-                                getGoogleReviews(placeId, function(reviews) {
-                                    var commentsContainer = document.getElementById('comments');
-                                    var masseuseHeader = document.getElementById('masseuseHeader');
-                                    if (!masseuseHeader) {
-                                        masseuseHeader = document.createElement('h3');
-                                        masseuseHeader.id = 'masseuseHeader';
-                                        document.getElementById('sectioncommentaire').insertBefore(masseuseHeader, commentsContainer);
-                                    }
-                                    masseuseHeader.textContent = `${masseuse.masseuse_nom} ${masseuse.masseuse_prenom}`;
-                                    masseuseHeader.innerHTML = `${masseuse.masseuse_nom} ${masseuse.masseuse_prenom} <img src="<?= BASE_URL; ?>../images/etoile.png" style="width: 2%;"><img src="<?= BASE_URL; ?>../images/etoile.png" style="width: 2%;"><img src="<?= BASE_URL; ?>../images/etoile.png" style="width: 2%;"><img src="<?= BASE_URL; ?>../images/etoile.png" style="width: 2%;"><img src="<?= BASE_URL; ?>../images/etoilenoire.png" style="width: 2%;">`;
-                                    masseuseHeader.style.textAlign = 'center';
+                marker.on('click', function() {
+                    console.log(`Fetching placeId for masseuse: ${masseuse.masseuse_nom}`);
+                    getPlaceId(masseuse, function(placeId) {
+                        if (placeId) {
+                            console.log(`Fetching reviews for placeId: ${placeId}`);
+                            getGoogleReviews(placeId, function(reviews) {
+                                var commentsContainer = document.getElementById('comments');
+                                var masseuseHeader = document.getElementById('masseuseHeader');
+                                if (!masseuseHeader) {
+                                    masseuseHeader = document.createElement('h3');
+                                    masseuseHeader.id = 'masseuseHeader';
+                                    document.getElementById('sectioncommentaire').insertBefore(masseuseHeader, commentsContainer);
+                                }
+                                masseuseHeader.textContent = `${masseuse.masseuse_nom} ${masseuse.masseuse_prenom}`;
+                                masseuseHeader.innerHTML = `${masseuse.masseuse_nom} ${masseuse.masseuse_prenom} <img src="<?= BASE_URL; ?>/images/etoile.png" style="width: 2%;"><img src="<?= BASE_URL; ?>/images/etoile.png" style="width: 2%;"><img src="<?= BASE_URL; ?>/images/etoile.png" style="width: 2%;"><img src="<?= BASE_URL; ?>/images/etoile.png" style="width: 2%;"><img src="<?= BASE_URL; ?>/images/etoilenoire.png" style="width: 2%;">`;
+                                masseuseHeader.style.textAlign = 'center';
 
-                                    commentsContainer.classList.remove('show');
+                                commentsContainer.classList.remove('show');
 
-                                    // Ajouter le bouton "Réserver" après le h3
-                                    var reserveButton = document.createElement('button');
-                                    reserveButton.className = 'btn-reserver';
-                                    reserveButton.innerHTML = '<i class="fas fa-calendar-alt"></i> Réserver avec ce(tte) professionnel(le)';
-                                    reserveButton.onclick = function() {
-                                        openCalendarPopup();
-                                    };
+                                // Ajouter le bouton "Réserver" après le h3
+                                var reserveButton = document.createElement('button');
+                                reserveButton.className = 'btn-reserver';
+                                reserveButton.innerHTML = '<i class="fas fa-calendar-alt"></i> Réserver avec ce(tte) professionnel(le)';
+                                reserveButton.onclick = function() {
+                                    openCalendarPopup();
+                                };
 
-                                    if (!document.getElementById('reserveButton')) {
-                                        reserveButton.id = 'reserveButton';
-                                        masseuseHeader.insertAdjacentElement('afterend', reserveButton);
-                                    }
+                                if (!document.getElementById('reserveButton')) {
+                                    reserveButton.id = 'reserveButton';
+                                    masseuseHeader.insertAdjacentElement('afterend', reserveButton);
+                                }
 
-                                    setTimeout(function() {
-                                        commentsContainer.innerHTML = '';
+                                setTimeout(function() {
+                                    commentsContainer.innerHTML = '';
 
-                                        if (reviews.length > 0) {
-                                            reviews.forEach(function(review) {
-                                                var reviewElement = document.createElement('div');
-                                                reviewElement.classList.add('col-md-4');
-                                                reviewElement.innerHTML = `
+                                    if (reviews.length > 0) {
+                                        reviews.forEach(function(review) {
+                                            var reviewElement = document.createElement('div');
+                                            reviewElement.classList.add('col-md-4');
+                                            reviewElement.innerHTML = `
                                                 <div class="card-body">
                                                     <h5 class="card-title">${review.author_name}</h5>
                                                     <p class="card-text">${review.text}</p>
                                                 </div>
                                             `;
-                                                commentsContainer.appendChild(reviewElement);
-                                            });
-                                        } else {
-                                            var noComments = document.createElement('div');
-                                            noComments.classList.add('col-md-12');
-                                            noComments.innerHTML = `
+                                            commentsContainer.appendChild(reviewElement);
+                                        });
+                                    } else {
+                                        var noComments = document.createElement('div');
+                                        noComments.classList.add('col-md-12');
+                                        noComments.innerHTML = `
                                             <div class="card mb-3" style="width: 18rem;">
                                                 <div class="card-body">
                                                     <h5 class="card-title">Aucun commentaire trouvé</h5>
@@ -485,77 +551,78 @@
                                                 </div>
                                             </div>
                                         `;
-                                            commentsContainer.appendChild(noComments);
-                                        }
+                                        commentsContainer.appendChild(noComments);
+                                    }
 
-                                        commentsContainer.classList.add('show');
-                                    }, 500);
-                                });
-                            } else {
-                                var commentsContainer = document.getElementById('comments');
-                                commentsContainer.classList.remove('show');
+                                    commentsContainer.classList.add('show');
+                                }, 500);
+                            });
+                        } else {
+                            var commentsContainer = document.getElementById('comments');
+                            commentsContainer.classList.remove('show');
 
-                                setTimeout(function() {
-                                    commentsContainer.innerHTML = '';
-                                    var noPlaceId = document.createElement('div');
-                                    noPlaceId.classList.add('col-md-12');
-                                    noPlaceId.innerHTML = `
+                            setTimeout(function() {
+                                commentsContainer.innerHTML = '';
+                                var noPlaceId = document.createElement('div');
+                                noPlaceId.classList.add('col-md-12');
+                                noPlaceId.innerHTML = `
                                     <div class="card-body">
                                         <h5 class="card-title">Aucun commentaire trouvé</h5>
                                         <p class="card-text">Aucun commentaire trouvé pour ${masseuse.masseuse_nom} ${masseuse.masseuse_prenom}.</p>
                                     </div>
                                 `;
-                                    commentsContainer.appendChild(noPlaceId);
+                                commentsContainer.appendChild(noPlaceId);
 
-                                    commentsContainer.classList.add('show');
-                                }, 500);
-                            }
-                        });
+                                commentsContainer.classList.add('show');
+                            }, 500);
+                        }
                     });
                 });
-            }
-
-            document.addEventListener('DOMContentLoaded', (event) => {
-                loadGoogleMapsAPI('initMap');
             });
+        }
 
-            function openCalendarPopup() {
-                document.getElementById('calendarPopup').style.display = 'block';
+        document.addEventListener('DOMContentLoaded', (event) => {
+            loadGoogleMapsAPI('initMap');
+        });
+
+        function openCalendarPopup() {
+            document.getElementById('calendarPopup').style.display = 'block';
+        }
+
+        function closeCalendarPopup() {
+            document.getElementById('calendarPopup').style.display = 'none';
+        }
+
+        window.onclick = function(event) {
+            let calendarPopup = document.getElementById('calendarPopup');
+            if (event.target == calendarPopup) {
+                calendarPopup.style.display = 'none';
             }
+        }
+    </script>
 
-            function closeCalendarPopup() {
-                document.getElementById('calendarPopup').style.display = 'none';
-            }
+    <!-- <script>
+        // Preloader
+        window.onload = function() {
+            setInterval( 
+                document.getElementById('preloader').style.display = 'none',2000);
+         
+        };
+    
+    </script> -->
 
-            window.onclick = function(event) {
-                let calendarPopup = document.getElementById('calendarPopup');
-                if (event.target == calendarPopup) {
-                    calendarPopup.style.display = 'none';
-                }
-            }
-        </script>
+    
 
-        <script>
-            // Preloader
-            window.onload = function() {
-                setTimeout(function() {
-                    document.getElementById('preloader').style.display = 'none';
-                }, 2000);
-            };
-        </script>
-
-        <?php include '../html/footer.php'; ?>
-
-        <script src="<?= BASE_URL; ?>../BS/bootstrap-5.3.3-examples/bootstrap-5.3.3-dist/js/bootstrap.js" defer></script>
-        <script>
-            function scrollToTop() {
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
-            }
-        </script>
-    </div>
+    <script src="<?= BASE_URL; ?>/BS/bootstrap-5.3.3-examples/bootstrap-5.3.3-dist/js/bootstrap.js" defer></script>
+    <script>
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+    </script>
+    <?php include 'footer.php'; ?>
 </body>
 
 </html>

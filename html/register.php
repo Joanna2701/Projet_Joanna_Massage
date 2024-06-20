@@ -7,12 +7,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Joanna Massage, massages à domicile</title>
-    <link href="<?= BASE_URL; ?>../CSS/style.css" rel="stylesheet">
-    <link href="<?= BASE_URL; ?>../BS/bootstrap-5.3.3-examples/bootstrap-5.3.3-dist/css/bootstrap.css" rel="stylesheet">
+    <link href="<?= BASE_URL; ?>/CSS/style.css" rel="stylesheet">
+    <link href="<?= BASE_URL; ?>/BS/bootstrap-5.3.3-examples/bootstrap-5.3.3-dist/css/bootstrap.css" rel="stylesheet">
 </head>
 
 <body>
-    <?php include '../html/header.php'; ?>
+    <?php include 'header.php'; ?>
 
     <?php
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -52,7 +52,7 @@
         Mot de passe: <input type="password" name="password" required><br>
         <input type="submit" value="S'inscrire">
     </form>
-    <script src="<?= BASE_URL; ?>../BS/bootstrap-5.3.3-examples/bootstrap-5.3.3-dist/js/bootstrap.js"></script>
+    <script src="<?= BASE_URL; ?>/BS/bootstrap-5.3.3-examples/bootstrap-5.3.3-dist/js/bootstrap.js"></script>
 
     <script src="https://kit.fontawesome.com/0ab69beb88.js" crossorigin="anonymous"></script>
 

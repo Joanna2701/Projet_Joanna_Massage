@@ -14,7 +14,7 @@
 
 <body>
     <?php include 'html/header.php'; ?>
-    <div class="allcontainer">    
+    <div class="allcontainer">
         <div class="container">
             <div class="logo-container">
                 <div class="logo-circle"></div>
@@ -30,16 +30,23 @@
             <div class="paragraphe animate-on-scroll">
                 <div class="titre-dessus">
                     <p>"S'offrir le bonheur, à portée de Mains"
-                    <br><br>
-                    <span>Je vous offre une approche naturelle et cocooning du massage à travers différentes techniques du Monde.</span>
-                    </p>
+                        <br><br>
+                        <span>Je vous offre une approche naturelle et cocooning du massage à travers différentes techniques du Monde.</span>
+                        <br>
+                        <span>Je me déplace à votre domicile, pour vous offrir un moment de détente et de bien-être, en toute sérénité.</span>
+                        <br>
+
                 </div>
                 <div class="titre-dessous animate-on-scroll">
                     <h1>Qui suis-je ?</h1>
                     <h2>Mon histoire</h2>
+                    <div class="video-container">
+                        <video class="video1" src="<?= BASE_URL; ?>/images/video.mp4" autoplay muted playsinline loop style="width: 1200px;"></video>
+                    </div>
                 </div>
                 <section>
-                    <div class="description bg-light p-4 rounded"><p>Curieuse de nature et dès mon plus jeune âge, j’ai développé mon affinité avec le Massage, pour ainsi devenir une passion ; Ma passion qui allait m’accompagner jusqu’au premier jour du reste de ma vie. Une fois avoir été diplômée "Hydrothérapeute" et "Spa Praticienne" chez Thalatherm, j’ai aiguisé mes techniques venues du Monde en suivant une formation d’Ayurvéda Thérapeute, dont la médecine holistique indienne, la philosophie de vie et le massage m’ont toujours passionné. Aujourd’hui, à l’aube d’une trentaine de bougies et après une carrière de soins dans les thermes marins, j’ai décidé de suivre ce joli parcours qu’est l’entreprenariat au féminin.</p>
+                    <div class="description bg-light p-4 rounded">
+                        <p>Curieuse de nature et dès mon plus jeune âge, j’ai développé mon affinité avec le Massage, pour ainsi devenir une passion ; Ma passion qui allait m’accompagner jusqu’au premier jour du reste de ma vie. Une fois avoir été diplômée "Hydrothérapeute" et "Spa Praticienne" chez Thalatherm, j’ai aiguisé mes techniques venues du Monde en suivant une formation d’Ayurvéda Thérapeute, dont la médecine holistique indienne, la philosophie de vie et le massage m’ont toujours passionné. Aujourd’hui, à l’aube d’une trentaine de bougies et après une carrière de soins dans les thermes marins, j’ai décidé de suivre ce joli parcours qu’est l’entreprenariat au féminin.</p>
                         <span>Aujourd'hui avec ces mains, j'écoute votre histoire, votre "schéma corporel", en remontant le chemin jusqu'à vos troubles présents... Avec un dos qui accumule tensions du quotidien, des cervicales qui ont besoin d'être "accompagnées", détendues pour recréer le mouvement dans son amplitude, etc... Je mets un point d'honneur à balayer d'un grand revers la pression sociale d'un corps imparfait, mais surtout, de construire une relation de con-fi-an-ce ensemble ! Je vous propose donc de mettre entre mes mains, au service du bien-être, tout mon savoir-faire et mon écoute personnalisée dans le massage Sur-Mesure, qui correspondra à vos souhaits, vos attentes, votre santé musculaire, tissulaire et également votre état psycho-émotionnel.</span>
                         <p><br>A très bientôt.</p>
                         <p><br>Joanna.</p>

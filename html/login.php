@@ -50,8 +50,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Joanna Massage, massages à domicile</title>
-    <link href="<?= BASE_URL; ?>../CSS/style.css" rel="stylesheet">
-    <link href="<?= BASE_URL; ?>../BS/bootstrap-5.3.3-examples/bootstrap-5.3.3-dist/css/bootstrap.css" rel="stylesheet">
+    <link href="<?= BASE_URL; ?>/CSS/style.css" rel="stylesheet">
+    <link href="<?= BASE_URL; ?>/BS/bootstrap-5.3.3-examples/bootstrap-5.3.3-dist/css/bootstrap.css" rel="stylesheet">
 </head>
 
 <style>
@@ -82,7 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     
     <div class="container">
-        <?php include '../html/header.php'; ?>
+        <?php include 'html/header.php'; ?>
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <div class="login-container" id="loginContainer">

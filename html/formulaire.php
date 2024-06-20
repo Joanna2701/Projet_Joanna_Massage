@@ -11,7 +11,7 @@
 
 
 <body>
-  <?php include '../html/header.php'; ?>
+  <?php include 'header.php'; ?>
   <form class="formulaire">
     <div class="form-row">
       <div class="form-group col-md-6">
@@ -59,7 +59,7 @@
     <button type="submit" class="btn btn-primary">Sign in</button>
   </form>
 
-  <?php include '../html/footer.php'; ?>
+  <?php include 'footer.php'; ?>
 </body>
 
 </html>
