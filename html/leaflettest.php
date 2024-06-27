@@ -2,6 +2,7 @@
 <html lang="fr">
 
 <head>
+    <?php include 'bdd.php' ?>
     <?php require_once 'config.php'; ?>
     <meta charset="UTF-8">
     <title>Carte avec Leaflet</title>
@@ -9,340 +10,332 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
     <link href="<?= BASE_URL; ?>/CSS/style.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
-</head>
 
-<style>
-    /* Style pour l'auto loader  */
 
-    #preloader {
-        position: fixed;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 9999;
-        background: white;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        filter: blur(5px);
-    }
+    <style>
+        /* Style pour l'auto loader  */
 
-    .spinner {
-        border: 8px solid rgba(0, 0, 0, 0.1);
-        border-left-color: #3dab97;
-        border-radius: 50%;
-        width: 64px;
-        height: 64px;
-        animation: spin 1s linear infinite;
-    }
-
-    @keyframes spin {
-        0% {
-            transform: rotate(0deg);
+        #preloader {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            background: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            filter: blur(5px);
         }
 
-        100% {
-            transform: rotate(360deg);
+        .spinner {
+            border: 8px solid rgba(0, 0, 0, 0.1);
+            border-left-color: #3dab97;
+            border-radius: 50%;
+            width: 64px;
+            height: 64px;
+            animation: spin 1s linear infinite;
         }
-    }
 
-    #map {
-        height: 500px;
-        margin: 150px;
-        justify-content: center;
-        align-items: center;
-        display: flex;
-        border: 6px solid #3dab97;
-        border-radius: 4px;
-        animation: fadeIn 1.6s ease-out;
-    }
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
 
-    /* Style de l'entête */
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        #map {
+            height: 500px;
+            margin: 150px;
+            justify-content: center;
+            align-items: center;
+            display: flex;
+            border: 6px solid #3dab97;
+            border-radius: 4px;
+            animation: fadeIn 1.6s ease-out;
+        }
+
+        /* Style de l'entête */
 
 
-    .container {
+        .container {
         font-family: 'Poppins', sans-serif;
         margin: 10px;
         max-width: 1200px;
         animation: fadeIn 1.6s ease-out;
     }
 
-    .text-center {
-        text-align: center;
-        color: #022b3a;
-        font-size: 28px;
-    }
-
-    .input-group-lg {
-        font-family: 'Poppins', sans-serif;
-        text-align: center;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin: 20px 0;
-        width: 40%;
-    }
-
-    .input-group-text {
-        display: flex;
-        align-items: center;
-        font-size: 1.5rem;
-        padding: 10px;
-    }
-
-    .input-group-text i {
-        font-size: 2rem;
-        margin-right: 10px;
-    }
-
-    .form-control {
-        font-size: 1.5rem;
-        padding: 10px;
-        flex: 1;
-    }
-
-    /* Style pour les cards */
-
-    .card-deck {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-    }
-
-    .card {
-        margin: 10px;
-    }
-
-    .card-title {
-        font-family: 'Poppins', sans-serif;
-        font-size: 20px;
-        color: #022b3a;
-    }
-
-    .card-text {
-        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-        font-size: 18px;
-        color: #3dab97;
-    }
-
-    #masseuseHeader,
-    .btn-reserver {
-        font-family: 'Pacifico', cursive;
-        font-size: 30px;
-        padding: 10px 20px;
-        width: auto;
-        border: 2px solid #3dab97;
-        border-radius: 8px;
-        background-color: #f8f9fa;
-        display: inline-block;
-        animation: fadeIn 1.6s ease-out;
-        margin-bottom: 20px;
-        text-align: center;
-        color: #022b3a;
-        cursor: pointer;
-    }
-
-    #sectioncommentaire h2 {
-        font-family: 'Pacifico', cursive;
-        font-size: 40px;
-        color: #3dab97;
-        text-decoration: underline;
-        text-align: center;
-        animation: fadeIn 1.6s ease-out;
-    }
-
-    #sectioncommentaire {
-        font-family: 'Poppins', sans-serif;
-        margin: 50px;
-        max-width: 80%;
-        animation: fadeIn 1.6s ease-out;
-    }
-
-    #sectioncommentaire h3 {
-        text-align: center;
-        font-family: 'Poppins', sans-serif;
-        font-size: 30px;
-        color: #022b3a;
-    }
-
-    .leaflet-popup-content {
-        max-height: 300px;
-        overflow-y: auto;
-    }
-
-    .animated {
-        opacity: 0;
-        transform: translateY(20px);
-        transition: opacity 1.6s ease-out, transform 1.6s ease-out;
-    }
-
-    .animated.show {
-        opacity: 1;
-        transform: translateY(0);
-        transition: opacity 1.6s ease-out, transform 1.6s ease-out;
-    }
-
-    .popup-content {
-        text-align: center;
-        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-        padding: 10px;
-    }
-
-    .popup-content img {
-        width: 150px;
-        height: 180px;
-        border-radius: 10%;
-        margin-bottom: 10px;
-    }
-
-    .popup-content h3 {
-        display: flex;
-        font-family: 'Pacifico', cursive;
-        margin: 5px 0;
-        font-size: 18px;
-    }
-
-    .popup-content p {
-        margin: 5px 0;
-        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-        font-size: 14px;
-    }
-
-    .popup-content a {
-        color: #007bff;
-        text-decoration: none;
-    }
-
-    .popup-content a:hover {
-        text-decoration: underline;
-    }
-
-    #comments {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-        gap: 20px;
-        margin-top: 20px;
-        animation: fadeIn 1.6s ease-out;
-    }
-
-    /* Style pour le calendrier */
-
-    #calendarPopup {
-        display: none;
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        padding: 20px;
-        background-color: white;
-        border: 2px solid #3dab97;
-        border-radius: 8px;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        z-index: 1000;
-        animation: fadeIn 1s ease-out;
-    }
-
-    #reserveButton {
-        margin: 10px;
-        font-family: 'Popins', sans-serif;
-        transition: transform 0.3s ease, background-color 0.3s ease;
-    }
-
-    #reserveButton:hover {
-        margin: 10px;
-        font-family: 'Popins', sans-serif;
-        background-color: #18535f;
-        color: white;
-        transform: scale(1.1);
-        animation: fadeIn 1.6s ease-out;
-    }
-
-    .btncroirouge {
-        color: red;
-        font-weight: 900;
-        font-size: 20px;
-        background-color: white;
-        border: none;
-        cursor: pointer;
-        display: flex;
-        justify-content: flex-end;
-    }
-
-    #footer {
-        margin-top:100px!important;
-        margin:auto !important;
-        width:1240px !important;
-        
-    }
-
-    /* Media Queries pour le Design Responsive */
-    @media screen and (max-width: 768px) {
-        #map {
-            margin: 20px;
-            height: 400px;
+        .text-center {
+            text-align: center;
+            color: #022b3a;
+            font-size: 28px;
         }
 
         .input-group-lg {
-            width: 80%;
-            margin: 10px auto;
-            flex-direction: column;
+            font-family: 'Poppins', sans-serif;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 20px 0;
+            width: 40%;
         }
 
         .input-group-text {
-            font-size: 1.2rem;
-            padding: 5px;
+            display: flex;
+            align-items: center;
+            font-size: 1.5rem;
+            padding: 10px;
+        }
+
+        .input-group-text i {
+            font-size: 2rem;
+            margin-right: 10px;
         }
 
         .form-control {
-            font-size: 1.2rem;
-            padding: 5px;
-            width: 100%;
+            font-size: 1.5rem;
+            padding: 10px;
+            flex: 1;
         }
 
-        .text-center {
-            font-size: 24px;
+        /* Style pour les cards */
+
+        .card-deck {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
         }
 
-        #sectioncommentaire {
-            margin: 20px;
-        }
-    }
-
-    @media screen and (max-width: 480px) {
-        #map {
+        .card {
             margin: 10px;
-            height: 300px;
         }
 
-        .input-group-lg {
-            width: 100%;
-            margin: 5px auto;
-            flex-direction: column;
-        }
-
-        .input-group-text {
-            font-size: 1rem;
-            padding: 5px;
-        }
-
-        .form-control {
-            font-size: 1rem;
-            padding: 5px;
-            width: 100%;
-        }
-
-        .text-center {
+        .card-title {
+            font-family: 'Poppins', sans-serif;
             font-size: 20px;
+            color: #022b3a;
+        }
+
+        .card-text {
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            font-size: 18px;
+            color: #3dab97;
+        }
+
+        #masseuseHeader,
+        .btn-reserver {
+            font-family: 'Pacifico', cursive;
+            font-size: 30px;
+            padding: 10px 20px;
+            width: auto;
+            border: 2px solid #3dab97;
+            border-radius: 8px;
+            background-color: #f8f9fa;
+            display: inline-block;
+            animation: fadeIn 1.6s ease-out;
+            margin-bottom: 20px;
+            text-align: center;
+            color: #022b3a;
+            cursor: pointer;
+        }
+
+        #sectioncommentaire h2 {
+            font-family: 'Pacifico', cursive;
+            font-size: 40px;
+            color: #3dab97;
+            text-decoration: underline;
+            text-align: center;
+            animation: fadeIn 1.6s ease-out;
         }
 
         #sectioncommentaire {
-            margin: 10px;
+            font-family: 'Poppins', sans-serif;
+            margin: 50px;
+            max-width: 80%;
+            animation: fadeIn 1.6s ease-out;
         }
-    }
 
+        #sectioncommentaire h3 {
+            text-align: center;
+            font-family: 'Poppins', sans-serif;
+            font-size: 30px;
+            color: #022b3a;
+        }
 
-</style>
+        .leaflet-popup-content {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .animated {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1.6s ease-out, transform 1.6s ease-out;
+        }
+
+        .animated.show {
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 1.6s ease-out, transform 1.6s ease-out;
+        }
+
+        .popup-content {
+            text-align: center;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            padding: 10px;
+        }
+
+        .popup-content img {
+            width: 150px;
+            height: 180px;
+            border-radius: 10%;
+            margin-bottom: 10px;
+        }
+
+        .popup-content h3 {
+            display: flex;
+            font-family: 'Pacifico', cursive;
+            margin: 5px 0;
+            font-size: 18px;
+        }
+
+        .popup-content p {
+            margin: 5px 0;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            font-size: 14px;
+        }
+
+        .popup-content a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .popup-content a:hover {
+            text-decoration: underline;
+        }
+
+        #comments {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+            animation: fadeIn 1.6s ease-out;
+        }
+
+        /* Style pour le calendrier */
+
+        #calendarPopup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            background-color: white;
+            border: 2px solid #3dab97;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            animation: fadeIn 1s ease-out;
+        }
+
+        #reserveButton {
+            margin: 10px;
+            font-family: 'Popins', sans-serif;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+
+        #reserveButton:hover {
+            margin: 10px;
+            font-family: 'Popins', sans-serif;
+            background-color: #18535f;
+            color: white;
+            transform: scale(1.1);
+            animation: fadeIn 1.6s ease-out;
+        }
+
+        .btncroirouge {
+            color: red;
+            font-weight: 900;
+            font-size: 20px;
+            background-color: white;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        /* Media Queries pour le Design Responsive */
+        @media screen and (max-width: 768px) {
+            #map {
+                margin: 20px;
+                height: 400px;
+            }
+
+            .input-group-lg {
+                width: 80%;
+                margin: 10px auto;
+                flex-direction: column;
+            }
+
+            .input-group-text {
+                font-size: 1.2rem;
+                padding: 5px;
+            }
+
+            .form-control {
+                font-size: 1.2rem;
+                padding: 5px;
+                width: 100%;
+            }
+
+            .text-center {
+                font-size: 24px;
+            }
+
+            #sectioncommentaire {
+                margin: 20px;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            #map {
+                margin: 10px;
+                height: 300px;
+            }
+
+            .input-group-lg {
+                width: 100%;
+                margin: 5px auto;
+                flex-direction: column;
+            }
+
+            .input-group-text {
+                font-size: 1rem;
+                padding: 5px;
+            }
+
+            .form-control {
+                font-size: 1rem;
+                padding: 5px;
+                width: 100%;
+            }
+
+            .text-center {
+                font-size: 20px;
+            }
+
+            #sectioncommentaire {
+                margin: 10px;
+            }
+        }
+    </style>
+</head>
 
 <body>
 
@@ -395,6 +388,7 @@
         });
 
         function loadGoogleMapsAPI(callback) {
+            console.log("Chargé")
             var script = document.createElement('script');
             script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyCb6ypZ01_IMAGo2Oi_dxl6CQC15ZcxNEY&libraries=places&callback=${callback}`;
             script.async = true;
@@ -403,8 +397,8 @@
         }
 
         function getPlaceId(masseuse, callback) {
-            var service = new google.maps.places.PlacesService(document.createElement('div'));
-            var request = {
+            let service = new google.maps.places.PlacesService(document.createElement('div'));
+            let request = {
                 query: masseuse.masseuse_nom + " " + masseuse.masseuse_prenom,
                 fields: ['place_id'],
                 locationBias: {
@@ -427,7 +421,7 @@
                 callback([]);
                 return;
             }
-            var service = new google.maps.places.PlacesService(document.createElement('div'));
+            let service = new google.maps.places.PlacesService(document.createElement('div'));
             service.getDetails({
                 placeId: placeId
             }, function(place, status) {
@@ -440,8 +434,21 @@
             });
         }
 
+        let massages = [];
+        $.ajax({
+            url: "/html/controller.php:",
+            method: "POST",
+            dataType: "json",
+            data: {
+                get_massages: true
+            },
+            success: (r) => {
+                if (r.success) massages = r.massages;
+            }
+        });
+
         function initMap() {
-            var map = L.map('map').setView([43.0866, 0.5732], 8);
+            let map = L.map('map').setView([43.0866, 0.5732], 8);
 
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -455,29 +462,29 @@
             });
 
             <?php
-            $servername = "localhost";
-            $username = "root";
-            $password = "";
-            $dbname = "masseuse";
+            // $servername = "localhost";
+            // $username = "u167780801_root";
+            // $password = "JoannaMassage1";
+            // $dbname = "u167780801_masseuse";
 
-            $conn = new mysqli($servername, $username, $password, $dbname);
+            // $conn = new mysqli($servername, $username, $password, $dbname);
 
-            if ($conn->connect_error) {
-                die("Connection failed: " . $conn->connect_error);
-            }
+            // if ($conn->connect_error) {
+            //     die("Connection failed: " . $conn->connect_error);
+            // }
 
-            $sql = "SELECT masseuse_id, masseuse_nom, masseuse_prenom, masseuse_lat AS lat, masseuse_lon AS lng, masseuse_img ,masseuse_website, masseuse_telephone FROM masseuse";
-            $result = $conn->query($sql);
+            // $sql = "SELECT masseuse_id, masseuse_nom, masseuse_prenom, masseuse_lat AS lat, masseuse_lon AS lng, masseuse_img ,masseuse_website, masseuse_telephone FROM masseuse";
+            // $result = $conn->query($sql);
 
-            $masseuses = array();
-            if ($result->num_rows > 0) {
-                while ($row = $result->fetch_assoc()) {
-                    $masseuses[] = $row;
-                }
-            } else {
-                echo "0 results";
-            }
-            $conn->close();
+            // $masseuses = array();
+            // if ($result->num_rows > 0) {
+            //     while ($row = $result->fetch_assoc()) {
+            //         $masseuses[] = $row;
+            //     }
+            // } else {
+            //     echo "0 results";
+            // }
+            // $conn->close();
             ?>
 
             let masseuses = <?php echo json_encode($masseuses); ?>;
@@ -609,16 +616,16 @@
         }
     </script>
 
-    <script>
-        // Preloader qui se joue pendant 2sec
+    <!-- <script>
+        // Preloader
         window.onload = function() {
-            setTimeout(function() {
-                document.getElementById('preloader').style.display = 'none';
-            }, 2000);
-        };
-    </script>
+            setInterval(
+                document.getElementById('preloader').style.display = 'none', 2000);
 
-    
+        };
+    </script> -->
+
+
 
     <script src="<?= BASE_URL; ?>/BS/bootstrap-5.3.3-examples/bootstrap-5.3.3-dist/js/bootstrap.js" defer></script>
     <script>

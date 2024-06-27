@@ -301,7 +301,8 @@
         </div>
     </div>
     <script>
-        // Script pour l'animation menu
+        // Script pour l'animation menu*
+        
         var menuLeft = document.getElementById('cbp-spmenu-s1'),
             showLeftPush = document.getElementById('showLeftPush'),
             body = document.body,

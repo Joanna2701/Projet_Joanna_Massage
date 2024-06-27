@@ -56,8 +56,9 @@
             background-color: #f4e9cd;
             padding: 20px 0;
             margin-top: 100px;
-            width: 1160px;
+            width: 1170px;
             text-align: center;
+            justify-content: center;
             border-top: 4px solid #022B3A;
             position: relative;
         }
