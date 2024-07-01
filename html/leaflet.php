@@ -385,6 +385,7 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
     <script src="<?= BASE_URL; ?>/JS/classie.js" defer></script>
 
+    <!-- Script pour permettre le clic sur le calendrier -->
     <script>
         $(function() {
             $("#datepicker").datepicker({
@@ -394,6 +395,7 @@
             });
         });
 
+        // Fonction pour charger l'API Google Maps
         function loadGoogleMapsAPI(callback) {
             var script = document.createElement('script');
             script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyCb6ypZ01_IMAGo2Oi_dxl6CQC15ZcxNEY&libraries=places&callback=${callback}`;
@@ -402,9 +404,10 @@
             document.head.appendChild(script);
         }
 
+        // Fonction pour récupérer le placeId d'un(e) masseuse
         function getPlaceId(masseuse, callback) {
-            var service = new google.maps.places.PlacesService(document.createElement('div'));
-            var request = {
+            let service = new google.maps.places.PlacesService(document.createElement('div'));
+            let request = {
                 query: masseuse.masseuse_nom + " " + masseuse.masseuse_prenom,
                 fields: ['place_id'],
                 locationBias: {
@@ -412,6 +415,7 @@
                     lng: Number(masseuse.lng)
                 }
             };
+            // Récupérer le placeId
             service.findPlaceFromQuery(request, function(results, status) {
                 if (status === google.maps.places.PlacesServiceStatus.OK && results.length > 0) {
                     callback(results[0].place_id);
@@ -422,15 +426,18 @@
             });
         }
 
+        // Fonction pour récupérer les avis Google
         function getGoogleReviews(placeId, callback) {
             if (!placeId) {
                 callback([]);
                 return;
             }
-            var service = new google.maps.places.PlacesService(document.createElement('div'));
+            // Récupérer les avis
+            let service = new google.maps.places.PlacesService(document.createElement('div'));
             service.getDetails({
                 placeId: placeId
             }, function(place, status) {
+                // Vérifier si les avis ont été récupérés
                 if (status === google.maps.places.PlacesServiceStatus.OK) {
                     callback(place.reviews);
                 } else {
@@ -440,6 +447,7 @@
             });
         }
 
+        // Fonction pour initialiser la carte
         function initMap() {
             var map = L.map('map').setView([43.0866, 0.5732], 8);
 
@@ -447,6 +455,7 @@
                 attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             }).addTo(map);
 
+             // Créer les marqueurs pour chaque masseuse
             var lotusIcon = L.icon({
                 iconUrl: "<?= BASE_URL; ?>/images/lotus2.png",
                 iconSize: [38, 38],
@@ -454,12 +463,16 @@
                 popupAnchor: [0, -38]
             });
 
+           
+    
             <?php
+            // Connexion à la base de données
             $servername = "localhost";
             $username = "root";
             $password = "";
             $dbname = "masseuse";
 
+            // Créer la connexion
             $conn = new mysqli($servername, $username, $password, $dbname);
 
             if ($conn->connect_error) {
@@ -483,6 +496,7 @@
             let masseuses = <?php echo json_encode($masseuses); ?>;
             console.log(masseuses);
 
+            // Fonction pour créer le contenu du popup
             function createPopupContent(masseuse) {
                 return `
                     <div class="popup-content">
@@ -494,6 +508,7 @@
                 `;
             }
 
+            // Ajouter les marqueurs à la carte
             masseuses.forEach(function(masseuse) {
                 var marker = L.marker([masseuse.lat, masseuse.lng], {
                     icon: lotusIcon
@@ -501,14 +516,16 @@
 
                 marker.bindPopup(createPopupContent(masseuse));
 
+                // Ajouter un événement de clic pour afficher les avis
                 marker.on('click', function() {
                     console.log(`Fetching placeId for masseuse: ${masseuse.masseuse_nom}`);
                     getPlaceId(masseuse, function(placeId) {
                         if (placeId) {
                             console.log(`Fetching reviews for placeId: ${placeId}`);
                             getGoogleReviews(placeId, function(reviews) {
-                                var commentsContainer = document.getElementById('comments');
-                                var masseuseHeader = document.getElementById('masseuseHeader');
+                                // Afficher les avis
+                                let commentsContainer = document.getElementById('comments');
+                                let masseuseHeader = document.getElementById('masseuseHeader');
                                 if (!masseuseHeader) {
                                     masseuseHeader = document.createElement('h3');
                                     masseuseHeader.id = 'masseuseHeader';
@@ -521,13 +538,14 @@
                                 commentsContainer.classList.remove('show');
 
                                 // Ajouter le bouton "Réserver" après le h3
-                                var reserveButton = document.createElement('button');
+                                let reserveButton = document.createElement('button');
                                 reserveButton.className = 'btn-reserver';
                                 reserveButton.innerHTML = '<i class="fas fa-calendar-alt"></i> Réserver avec ce(tte) professionnel(le)';
                                 reserveButton.onclick = function() {
                                     openCalendarPopup();
                                 };
 
+                                // Vérifier si le bouton "Réserver" existe déjà
                                 if (!document.getElementById('reserveButton')) {
                                     reserveButton.id = 'reserveButton';
                                     masseuseHeader.insertAdjacentElement('afterend', reserveButton);
@@ -536,6 +554,7 @@
                                 setTimeout(function() {
                                     commentsContainer.innerHTML = '';
 
+                                    // Vérifier si des avis ont été trouvés
                                     if (reviews.length > 0) {
                                         reviews.forEach(function(review) {
                                             var reviewElement = document.createElement('div');
@@ -549,7 +568,8 @@
                                             commentsContainer.appendChild(reviewElement);
                                         });
                                     } else {
-                                        var noComments = document.createElement('div');
+                                        // "Aucun avis trouvé"
+                                        let noComments = document.createElement('div');
                                         noComments.classList.add('col-md-12');
                                         noComments.innerHTML = `
                                             <div class="card mb-3" style="width: 18rem;">
@@ -566,7 +586,7 @@
                                 }, 500);
                             });
                         } else {
-                            var commentsContainer = document.getElementById('comments');
+                            let commentsContainer = document.getElementById('comments');
                             commentsContainer.classList.remove('show');
 
                             setTimeout(function() {
@@ -589,6 +609,7 @@
             });
         }
 
+        // Charger l'API Google Maps
         document.addEventListener('DOMContentLoaded', (event) => {
             loadGoogleMapsAPI('initMap');
         });
@@ -601,6 +622,7 @@
             document.getElementById('calendarPopup').style.display = 'none';
         }
 
+        // Fermer le popup en cliquant en dehors
         window.onclick = function(event) {
             let calendarPopup = document.getElementById('calendarPopup');
             if (event.target == calendarPopup) {
