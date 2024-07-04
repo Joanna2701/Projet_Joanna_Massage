@@ -29,6 +29,7 @@
     </footer>
 
     <script>
+        // Fonction pour remonter en haut de la page
         function scrollToTop() {
             window.scrollTo({
                 top: 0,
@@ -36,8 +37,11 @@
             });
         }
 
-        window.addEventListener('scroll', function () {
-            var backToTopButton = document.getElementById('backToTop');
+        // Afficher le bouton "back to top" quand on scroll
+        window.addEventListener('scroll', function() {
+            // On récupère le bouton "back to top"
+            let backToTopButton = document.getElementById('backToTop');
+            // Si on a scrollé de plus de 300px
             if (window.scrollY > 300) {
                 backToTopButton.style.display = 'flex';
             } else {
@@ -47,16 +51,18 @@
     </script>
 
     <style>
-        .legal p {
+        body {
+            font-family: 'Poppins', sans-serif;
             color: #18535f;
-            font-weight: 600;
+            margin: 0;
+            transition: opacity 1.5s ease-in-out;
         }
 
         #footer {
             background-color: #f4e9cd;
             padding: 20px 0;
             margin-top: 100px;
-            width: 1170px;
+            width: 100%;
             text-align: center;
             justify-content: center;
             border-top: 4px solid #022B3A;
@@ -97,16 +103,16 @@
             display: none;
             align-items: center;
             justify-content: center;
-            width: 100px;
-            height: 100px;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
             background-color: #3dab97;
             border: 5px solid white;
             color: #022B3A;
             font-size: 25px;
             position: fixed;
-            bottom: 150px;
-            right: 50px;
+            bottom: 30px;
+            right: 30px;
             z-index: 1000;
             cursor: pointer;
             transition: background-color 0.3s, color 0.3s, transform 0.3s;
@@ -134,12 +140,19 @@
         }
 
         @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {
+
+            0%,
+            20%,
+            50%,
+            80%,
+            100% {
                 transform: translateY(0);
             }
+
             40% {
                 transform: translateY(-20px);
             }
+
             60% {
                 transform: translateY(-10px);
             }
@@ -147,35 +160,66 @@
 
         /* Responsive design */
         @media (max-width: 768px) {
+            .legal {
+                text-align: center;
+            }
+
+            .legal p {
+                margin: 10px 0;
+            }
+
+            .legal span {
+                display: block;
+                margin: 10px 0;
+            }
+
             .social-icons a {
                 font-size: 20px;
                 margin: 0 5px;
             }
 
             .back-to-top {
-                width: 40px;
-                height: 40px;
+                width: 50px;
+                height: 50px;
                 font-size: 20px;
-                bottom: 15px;
-                right: 15px;
+                bottom: 20px;
+                right: 20px;
             }
         }
 
         @media (max-width: 480px) {
+            .legal {
+                text-align: center;
+            }
+
+            .legal p {
+                margin: 10px 0;
+            }
+
+            .legal span {
+                display: block;
+                margin: 10px 0;
+            }
+
+            .social-icons {
+                margin: 10px 0;
+            }
+
             .social-icons a {
                 font-size: 18px;
                 margin: 0 3px;
             }
 
             .back-to-top {
-                width: 30px;
-                height: 30px;
+                width: 40px;
+                height: 40px;
                 font-size: 16px;
                 bottom: 10px;
                 right: 10px;
             }
         }
     </style>
+
 </body>
 
 </html>

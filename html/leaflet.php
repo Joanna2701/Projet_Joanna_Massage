@@ -4,7 +4,7 @@
 <head>
     <?php require_once 'config.php'; ?>
     <meta charset="UTF-8">
-    <title>Carte avec Leaflet</title>
+    <title>Joanna Massage, massages à domicile</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
     <link href="<?= BASE_URL; ?>/CSS/style.css" rel="stylesheet">
@@ -12,8 +12,7 @@
 </head>
 
 <style>
-    /* Style pour l'auto loader  */
-
+    /* Styles pour l'auto loader */
     #preloader {
         position: fixed;
         left: 0;
@@ -58,9 +57,7 @@
         animation: fadeIn 1.6s ease-out;
     }
 
-    /* Style de l'entête */
-
-
+    /* Styles de l'entête */
     .container {
         font-family: 'Poppins', sans-serif;
         margin: 10px;
@@ -102,8 +99,7 @@
         flex: 1;
     }
 
-    /* Style pour les cards */
-
+    /* Styles pour les cartes */
     .card-deck {
         display: flex;
         flex-wrap: wrap;
@@ -226,8 +222,7 @@
         animation: fadeIn 1.6s ease-out;
     }
 
-    /* Style pour le calendrier */
-
+    /* Styles pour le calendrier */
     #calendarPopup {
         display: none;
         position: fixed;
@@ -270,10 +265,9 @@
     }
 
     #footer {
-        margin-top:100px!important;
-        margin:auto !important;
-        width:1240px !important;
-        
+        margin-top: 100px !important;
+        margin: auto !important;
+        width: 1240px !important;
     }
 
     /* Media Queries pour le Design Responsive */
@@ -340,7 +334,6 @@
             margin: 10px;
         }
     }
-
 
 </style>
 
@@ -449,13 +442,13 @@
 
         // Fonction pour initialiser la carte
         function initMap() {
-            var map = L.map('map').setView([43.0866, 0.5732], 8);
+            let map = L.map('map').setView([43.0866, 0.5732], 8);
 
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             }).addTo(map);
 
-             // Créer les marqueurs pour chaque masseuse
+            // Créer les marqueurs pour chaque masseuse
             var lotusIcon = L.icon({
                 iconUrl: "<?= BASE_URL; ?>/images/lotus2.png",
                 iconSize: [38, 38],
@@ -463,8 +456,8 @@
                 popupAnchor: [0, -38]
             });
 
-           
-    
+
+
             <?php
             // Connexion à la base de données
             $servername = "localhost";
@@ -640,7 +633,7 @@
         };
     </script>
 
-    
+
 
     <script src="<?= BASE_URL; ?>/BS/bootstrap-5.3.3-examples/bootstrap-5.3.3-dist/js/bootstrap.js" defer></script>
     <script>

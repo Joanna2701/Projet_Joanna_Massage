@@ -128,9 +128,10 @@
             }
 
             window.addEventListener('scroll', checkPosition);
-            checkPosition(); // initial check
+            checkPosition(); 
         });
     </script>
+
 
     <script>
         function scrollToTop() {

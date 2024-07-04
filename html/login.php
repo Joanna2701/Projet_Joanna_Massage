@@ -1,46 +1,3 @@
-<?php
-session_start();
-
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Connexion à la base de données
-    $conn = new mysqli('localhost', 'root', '', 'masseuse');
-
-    // Vérifier la connexion
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
-
-    // Récupérer les données du formulaire
-    $username = $_POST['utilisateur_pseudo'];
-    $password = $_POST['utilisateur_mdp'];
-
-    // Préparer et exécuter la requête
-    $stmt = $conn->prepare("SELECT id, password FROM users WHERE username = ?");
-    $stmt->bind_param("s", $username);
-    $stmt->execute();
-    $stmt->store_result();
-    $stmt->bind_result($id, $hashed_password);
-
-    if ($stmt->num_rows > 0) {
-        $stmt->fetch();
-        if (password_verify($password, $hashed_password)) {
-            // Stocker les informations de l'utilisateur dans la session
-            $_SESSION['userid'] = $id;
-            $_SESSION['username'] = $username;
-            echo "Connexion réussie !";
-        } else {
-            echo "Mot de passe incorrect.";
-        }
-    } else {
-        echo "Nom d'utilisateur incorrect.";
-    }
-
-    // Fermer la connexion
-    $stmt->close();
-    $conn->close();
-}
-?>
-
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -52,89 +9,206 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <title>Joanna Massage, massages à domicile</title>
     <link href="<?= BASE_URL; ?>/CSS/style.css" rel="stylesheet">
     <link href="<?= BASE_URL; ?>/BS/bootstrap-5.3.3-examples/bootstrap-5.3.3-dist/css/bootstrap.css" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .form-container {
+            background-color: #fff8e1;
+            font-family: 'Poppins', sans-serif;
+            padding: 50px;
+            height: 100%;
+            width: 80%;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .toast {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            min-width: 300px;
+            z-index: 1060;
+        }
+
+        .modal-content {
+            background-color: #fff8e1;
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 2em;
+        }
+
+        .form-control {
+            margin-bottom: 20px;
+        }
+
+        .btn-primary {
+            background-color: #18535f;
+            border: none;
+        }   
+
+        .btn-primary:hover {
+            background-color: #3dab97;
+        }
+
+        .btn-secondary {
+            background-color: #f4e9cd;
+            border: none;
+        }
+
+        .btn-secondary:hover {
+            background-color: #f8f9fa;
+        }
+
+        .alert {
+            margin-bottom: 0;
+            border-color: red;
+        }
+
+        .modal-content {
+            background-color: #f4e9cd;
+        }
+
+        .modal-header {
+            border-bottom: 1px solid #18535f;
+        }
+
+        .modal-title {
+            color: #18535f;
+        }
+
+        .modal-body {
+            padding: 0;
+        }
+
+        .modal-footer {
+            border-top: 1px solid #18535f;
+        }
+
+        .modal-footer .btn-secondary {
+            background-color: #18535f;
+        }
+
+        .modal-footer .btn-secondary:hover {
+            background-color: #3dab97;
+        }
+
+        .modal-footer .btn-secondary:focus {
+            background-color: #3dab97;
+        }
+
+        .modal-footer .btn-secondary:active {
+            background-color: #3dab97;
+        }
+
+        .modal-footer .btn-secondary:active:focus {
+            background-color: #3dab97;
+        }
+
+        .modal-footer .btn-secondary:active:hover {
+            background-color: #3dab97;
+        }
+
+    </style>
 </head>
 
-<style>
-    body {
-        background-color: #f4e9cd;
-    }
-
-    .login-container {
-        max-width: 400px;
-        margin: 0 auto;
-        padding: 20px;
-        border: 1px solid #ccc;
-        border-radius: 8px;
-        background-color: #fff;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        transition: opacity 0.3s ease;
-        opacity: 0;
-    }
-
-    .login-container.show {
-        opacity: 1;
-    }
-</style>
-
-
-
 <body>
+    <?php include 'header.php'; ?>
 
-    
-    <div class="container">
-        <?php include 'html/header.php'; ?>
-        <div class="row justify-content-center">
-            <div class="col-md-6">
-                <div class="login-container" id="loginContainer">
-                    <h2 class="mb-4">Connexion</h2>
-                    <form method="post" action="" id="loginForm">
-                        Nom d'utilisateur: <input type="text" name="username" required><br>
-                        Mot de passe: <input type="password" name="password" required><br>
-                        <input type="submit" value="Se connecter">
-                    </form>
+    <?php
+    $message = "";
+    $messageType = "";
 
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        try {
+            // Connexion à la base de données avec PDO
+            $pdo = new PDO('mysql:host=localhost;dbname=masseuse', 'root', '');
+            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+            // Récupérer les données du formulaire
+            $pseudo = $_POST['utilisateur_pseudo'];
+            $email = $_POST['utilisateur_email'];
+            $mdp = password_hash($_POST['utilisateur_mdp'], PASSWORD_BCRYPT);
+
+            // Vérifier la longueur du mot de passe
+            if (strlen($mdp) < 10 || strlen($mdp) > 100) {
+                throw new Exception("Le mot de passe doit contenir 10 caractères minimum.");
+            }
+
+            // Hashage du mot de passe
+            $mdp_hache = password_hash($mdp, PASSWORD_BCRYPT);
+
+            // Préparer et exécuter la requête
+            $stmt = $pdo->prepare("INSERT INTO utilisateur (utilisateur_pseudo, utilisateur_email, utilisateur_mdp) VALUES (?, ?, ?)");
+            $stmt->execute([$pseudo, $email, $mdp]);
+
+            $message = "Inscription réussie !";
+            $messageType = "success";
+        } catch (Exception $e) {
+            $message = "Erreur : " . $e->getMessage();
+            $messageType = "danger";
+        }
+    }
+    ?>
+
+    <div class="container d-flex align-items-center justify-content-center min-vh-100">
+        <div class="row">
+            <div class="col-md-6 offset-md-3 form-container">
+                <h2>Mon compte</h2>
+                <form method="post" action="" class="mb-4">
                     <div class="mb-3">
-                        <label for="username" class="form-label">Nom d'utilisateur:</label>
-                        <input type="text" name="username" id="username" class="form-control" required>
+                        <label for="utilisateur_pseudo" class="form-label">Nom d'utilisateur</label>
+                        <input type="text" name="utilisateur_pseudo" id="utilisateur_pseudo" class="form-control" required>
                     </div>
-
-
                     <div class="mb-3">
-                        <label for="password" class="form-label">Mot de passe:</label>
-                        <input type="password" name="password" id="password" class="form-control" required>
+                        <label for="utilisateur_email" class="form-label">Email</label>
+                        <input type="email" name="utilisateur_email" id="utilisateur_email" class="form-control" required>
                     </div>
-                    <button type="submit" class="btn btn-primary">Se connecter</button>
-                </div>
+                    <div class="mb-3">
+                        <label for="utilisateur_mdp" class="form-label">Mot de passe</label>
+                        <input type="password" name="utilisateur_mdp" id="utilisateur_mdp" class="form-control" required minlength="10" maxlength="100">
+                        <div id="passwordHelpBlock" class="form-text">
+                            Votre mot de passe doit contenir entre 10 et 100 caractères.
+                        </div>
+                    </div>
+                    <div class="d-grid">
+                        <input type="submit" value="Me connecter" class="btn btn-primary">
+                    </div>
+                </form>
             </div>
         </div>
-
-
-    </div>
     </div>
 
-
-    <?php include 'footer.php'; ?>
-
-    <script>
-        // Smoothly display login container
-        window.addEventListener('DOMContentLoaded', function() {
-            document.gtEleementById('loginContainer').classList.add('show');
-        });
-    </script>
-
-    <script>
-        function scrollToTop() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
+    <?php if (!empty($message)) : ?>
+        <div class="toast align-items-center text-bg-<?= $messageType; ?>" id="toastMessage" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body">
+                    <?= $message; ?>
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                var toastEl = document.getElementById('toastMessage');
+                var toast = new bootstrap.Toast(toastEl);
+                toast.show();
             });
-        }
-    </script>
+        </script>
+    <?php endif; ?>
 
-    <script src="<?= BASE_URL; ?>BS/bootstrap-5.3.3-examples/bootstrap-5.3.3-dist/js/bootstrap.js"></script>
-
+    <script src="<?= BASE_URL; ?>/BS/bootstrap-5.3.3-examples/bootstrap-5.3.3-dist/js/bootstrap.bundle.js"></script>
     <script src="https://kit.fontawesome.com/0ab69beb88.js" crossorigin="anonymous"></script>
 
+    <?php include 'footer.php'; ?>
 </body>
 
 </html>
